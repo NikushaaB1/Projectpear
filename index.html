@@ -1,0 +1,2656 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SONS OF PEAR — Custom Fashion Georgia</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ─── RESET ─────────────────────────────────── */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --pear:#c9db3f;
+  --pear-d:#9aab1a;
+  --pear-l:#e6f255;
+  --ink:#111109;
+  --ink2:#1e1e16;
+  --gray:#6e6e60;
+  --sand:#f2edd8;
+  --white:#fafaf5;
+  --border:#e4dfc8;
+  --r:16px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--white);color:var(--ink);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;border:none}
+img{max-width:100%;display:block}
+
+/* ─── NAVBAR ─────────────────────────────────── */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  height:68px;padding:0 3rem;
+  display:flex;align-items:center;gap:2.5rem;
+  background:rgba(250,250,245,0.88);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid transparent;
+  transition:border-color .3s,box-shadow .3s;
+}
+#nav.scrolled{border-color:var(--border);box-shadow:0 2px 24px rgba(0,0,0,.06)}
+.n-logo{ display:flex;align-items:center;flex-shrink:0;text-decoration:none; }
+.brand-svg{ height:44px;width:auto; }
+.n-logo em{color:var(--pear-d);font-style:normal}
+.n-links{display:flex;gap:.2rem;list-style:none;margin-left:.5rem}
+.n-links a{
+  padding:.5rem 1.1rem;border-radius:100px;
+  font-size:.9rem;font-weight:500;color:var(--gray);
+  transition:color .2s,background .2s;
+}
+.n-links a:hover,.n-links a.act{color:var(--ink);background:var(--sand)}
+.n-search{
+  margin-left:auto;display:flex;align-items:center;gap:.6rem;
+  background:var(--sand);border:1.5px solid var(--border);
+  border-radius:100px;padding:.45rem 1.2rem;
+  width:240px;transition:width .3s,border-color .2s;
+}
+.n-search:focus-within{width:300px;border-color:var(--pear-d)}
+.n-search input{border:none;background:transparent;outline:none;font-size:.88rem;font-family:inherit;width:100%;color:var(--ink)}
+.n-search svg{flex-shrink:0;color:var(--gray)}
+.hbg{display:none;flex-direction:column;gap:5px;background:none;padding:4px;margin-left:auto}
+.hbg span{width:22px;height:2px;background:var(--ink);border-radius:2px;transition:all .3s;display:block}
+.hbg.on span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hbg.on span:nth-child(2){opacity:0}
+.hbg.on span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mob{
+  display:none;position:fixed;top:68px;left:0;right:0;z-index:899;
+  background:var(--white);border-bottom:1px solid var(--border);
+  padding:1.2rem 1.5rem;flex-direction:column;gap:.3rem;
+}
+.mob.on{display:flex}
+.mob a{padding:.8rem 1rem;border-radius:12px;font-weight:500;font-size:1rem;transition:background .2s}
+.mob a:hover{background:var(--sand)}
+.mob-srch{
+  display:flex;align-items:center;gap:.6rem;
+  background:var(--sand);border:1.5px solid var(--border);
+  border-radius:100px;padding:.55rem 1.2rem;margin-top:.5rem;
+}
+.mob-srch input{border:none;background:transparent;outline:none;font-size:.92rem;font-family:inherit;width:100%}
+
+/* ─── PAGES ──────────────────────────────────── */
+.page{display:none;padding-top:68px;min-height:100vh}
+.page.act{display:block}
+
+/* ─── HOME HERO ──────────────────────────────── */
+.hero{
+  position:relative;width:100%;
+  height:calc(100vh - 68px);min-height:600px;
+  overflow:hidden;display:flex;align-items:flex-end;
+}
+
+/* Full-width hero background — dark editorial gradient */
+.hero-bg{
+  position:absolute;inset:0;
+  background: linear-gradient(135deg, #0d1106 0%, #1a2508 35%, #111109 65%, #0a0a06 100%);
+  overflow:hidden;
+}
+.hero-bg::before{
+  content:'';
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 40%, rgba(201,219,63,0.13) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 20% 80%, rgba(201,219,63,0.06) 0%, transparent 50%);
+}
+.hero-bg::after{
+  content:'🍐';
+  position:absolute;
+  font-size:clamp(22rem,38vw,50rem);
+  opacity:0.05;
+  right:-5%;top:50%;
+  transform:translateY(-50%) rotate(12deg);
+  pointer-events:none;
+  line-height:1;
+}
+@keyframes zoomOut{from{transform:scale(1.07)}to{transform:scale(1)}}
+
+/* dark gradient overlay for text readability */
+.hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(
+    to top,
+    rgba(10,10,6,.85) 0%,
+    rgba(10,10,6,.45) 40%,
+    rgba(10,10,6,.1) 70%,
+    transparent 100%
+  );
+}
+
+.hero-content{
+  position:relative;z-index:2;
+  width:100%;padding:0 5rem 5rem;
+  display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;
+}
+
+.hero-text{}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:var(--pear);color:var(--ink);
+  font-size:.72rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;
+  padding:.4rem 1.2rem;border-radius:100px;margin-bottom:1.8rem;
+  opacity:0;animation:up .7s ease .1s forwards;
+}
+.hero-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(4rem,8vw,8.5rem);
+  font-weight:700;line-height:.95;color:var(--white);
+  margin-bottom:.6rem;
+  opacity:0;animation:up .7s ease .2s forwards;
+}
+.hero-title em{font-style:italic;color:var(--pear)}
+.hero-sub{
+  font-size:clamp(1rem,1.5vw,1.15rem);color:rgba(255,255,255,.7);
+  font-weight:300;max-width:500px;line-height:1.7;
+  margin-bottom:2.5rem;
+  opacity:0;animation:up .7s ease .35s forwards;
+}
+.hero-btns{
+  display:flex;gap:1rem;flex-wrap:wrap;
+  opacity:0;animation:up .7s ease .5s forwards;
+}
+
+.hero-stats{
+  display:flex;flex-direction:column;gap:2rem;align-items:flex-end;
+  opacity:0;animation:up .7s ease .6s forwards;
+  flex-shrink:0;
+}
+.hero-stat{text-align:right}
+.hero-stat-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:3rem;font-weight:700;color:var(--pear);line-height:1;
+}
+.hero-stat-label{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:.2rem}
+
+@keyframes up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+
+/* scroll hint */
+.scroll-hint{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:3;
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  color:rgba(255,255,255,.4);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+  animation:bob 2s ease-in-out infinite;
+}
+.scroll-hint svg{opacity:.5}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+
+/* buttons */
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.9rem 2.2rem;border-radius:100px;
+  font-size:.92rem;font-weight:500;border:none;
+  transition:all .22s;cursor:pointer;
+}
+.btn-light{background:var(--white);color:var(--ink)}
+.btn-light:hover{background:var(--sand);transform:translateY(-2px)}
+.btn-pear{background:var(--pear);color:var(--ink)}
+.btn-pear:hover{background:var(--pear-l);transform:translateY(-2px)}
+.btn-dark{background:var(--ink);color:var(--white)}
+.btn-dark:hover{background:#333;transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--white);border:1.5px solid rgba(255,255,255,.35)}
+.btn-outline:hover{border-color:var(--white);background:rgba(255,255,255,.08);transform:translateY(-2px)}
+
+/* ─── STRIP ──────────────────────────────────── */
+.strip{background:var(--ink);padding:.85rem 0;overflow:hidden;white-space:nowrap}
+.strip-track{display:inline-block;animation:marquee 24s linear infinite}
+.strip-item{
+  display:inline-block;font-size:.75rem;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--pear);
+  padding:0 2.5rem;
+}
+.strip-item::after{content:'·';margin-left:2.5rem;opacity:.3}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ─── SECTION COMMON ─────────────────────────── */
+.section{padding:6rem 4rem;max-width:1400px;margin:0 auto}
+.sec-eyebrow{font-size:.7rem;letter-spacing:.45em;text-transform:uppercase;color:#aaa;margin-bottom:.6rem}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.5rem);font-weight:700;line-height:1.05}
+.sec-row{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:3rem;flex-wrap:wrap;gap:1rem}
+.see-all{font-size:.88rem;color:var(--pear-d);font-weight:600;background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:.35rem;transition:gap .2s}
+.see-all:hover{gap:.65rem}
+
+/* ─── CATEGORY ROW ───────────────────────────── */
+.cat-row{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;
+  padding:0 4rem 5rem;max-width:1400px;margin:0 auto;
+}
+.cat-card{
+  border-radius:20px;overflow:hidden;position:relative;
+  aspect-ratio:4/3;cursor:pointer;
+  transition:transform .3s;
+}
+.cat-card:hover{transform:scale(1.02)}
+.cat-bg{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .5s;
+}
+.cat-card:hover .cat-bg{transform:scale(1.06)}
+.cat-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,.65) 0%,transparent 60%);
+}
+.cat-text{
+  position:absolute;bottom:1.8rem;left:1.8rem;
+  color:white;
+}
+.cat-text h3{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;line-height:1}
+.cat-text p{font-size:.8rem;opacity:.7;margin-top:.3rem}
+.cat-pear{
+  position:absolute;top:1.2rem;right:1.2rem;
+  background:var(--pear);color:var(--ink);
+  font-size:.65rem;font-weight:700;letter-spacing:.1em;
+  padding:.3rem .8rem;border-radius:100px;
+}
+
+/* ─── CARDS ──────────────────────────────────── */
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+
+.card{
+  background:var(--white);border-radius:var(--r);
+  border:1px solid var(--border);overflow:hidden;
+  transition:transform .3s,box-shadow .3s;cursor:pointer;
+}
+.card:hover{transform:translateY(-7px);box-shadow:0 20px 48px rgba(0,0,0,.1)}
+.c-img{
+  background:var(--sand);aspect-ratio:3/4;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;position:relative;
+}
+.c-img img{width:100%;height:100%;object-fit:cover;object-position:center top;transition:transform .5s}
+.card:hover .c-img img{transform:scale(1.06)}
+.c-img-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+.c-img-ph svg{width:62%;height:62%}
+.c-num{position:absolute;top:.9rem;left:1rem;font-size:.62rem;font-weight:600;letter-spacing:.2em;color:#bbb}
+.c-badge{
+  position:absolute;top:.9rem;right:.9rem;
+  background:var(--pear);color:var(--ink);
+  font-size:.62rem;font-weight:700;letter-spacing:.1em;
+  padding:.22rem .65rem;border-radius:100px;
+}
+.c-body{padding:1.4rem 1.5rem 1.8rem}
+.c-cat{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:#bbb;margin-bottom:.3rem}
+.c-name{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:700;margin-bottom:.25rem}
+.c-desc{font-size:.82rem;color:var(--gray);line-height:1.55;font-weight:300}
+.c-foot{display:flex;align-items:center;justify-content:space-between;margin-top:1.1rem}
+.c-tag{background:#eef5cc;color:#4a6800;font-size:.65rem;font-weight:600;letter-spacing:.1em;padding:.3rem .85rem;border-radius:100px}
+.c-arr{
+  width:34px;height:34px;border-radius:50%;background:var(--sand);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.95rem;transition:background .2s,transform .2s;
+}
+.card:hover .c-arr{background:var(--ink);color:var(--white);transform:rotate(45deg)}
+
+/* ─── PRODUCTS PAGE ──────────────────────────── */
+.prod-page{max-width:1400px;margin:0 auto;padding:3.5rem 4rem 6rem}
+.prod-head{margin-bottom:3rem}
+.prod-head h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.5rem);font-weight:700}
+.prod-head p{color:var(--gray);margin-top:.5rem;font-size:.95rem}
+.filter-bar{display:flex;align-items:center;gap:.75rem;margin-bottom:3rem;flex-wrap:wrap}
+.f-btn{
+  padding:.5rem 1.3rem;border-radius:100px;
+  font-size:.85rem;font-weight:500;border:1.5px solid var(--border);
+  background:transparent;color:var(--gray);transition:all .2s;cursor:pointer;
+}
+.f-btn:hover,.f-btn.act{background:var(--ink);color:var(--white);border-color:var(--ink)}
+.prod-cnt{margin-left:auto;font-size:.82rem;color:var(--gray)}
+
+/* ─── MODAL ──────────────────────────────────── */
+.m-ov{
+  position:fixed;inset:0;z-index:2000;
+  background:rgba(0,0,0,.6);backdrop-filter:blur(6px);
+  display:none;align-items:center;justify-content:center;padding:1.5rem;
+}
+.m-ov.on{display:flex}
+.modal{
+  background:var(--white);border-radius:24px;
+  max-width:900px;width:100%;max-height:90vh;overflow-y:auto;
+  display:grid;grid-template-columns:1fr 1fr;
+  box-shadow:0 40px 100px rgba(0,0,0,.3);
+  animation:mIn .35s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes mIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+.m-img{
+  background:var(--sand);display:flex;align-items:center;
+  justify-content:center;overflow:hidden;position:relative;min-height:520px;
+}
+.m-img img{width:100%;height:100%;object-fit:cover}
+.m-img-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+.m-img-ph svg{width:65%;height:65%}
+.m-body{padding:2.8rem 2.5rem;display:flex;flex-direction:column;position:relative}
+.m-x{
+  position:absolute;top:1.2rem;right:1.2rem;
+  width:38px;height:38px;border-radius:50%;
+  background:var(--sand);border:none;font-size:1.1rem;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:background .2s;
+}
+.m-x:hover{background:var(--border)}
+.m-cat{font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:#bbb;margin-bottom:.5rem}
+.m-name{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:700;line-height:1.05;margin-bottom:.4rem}
+.m-div{width:44px;height:2.5px;background:var(--pear);margin:1rem 0 1.2rem}
+.m-desc{font-size:.9rem;color:var(--gray);line-height:1.78;font-weight:300;margin-bottom:1.5rem}
+.m-features{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.8rem}
+.m-feat{display:flex;align-items:center;gap:.65rem;font-size:.84rem}
+.m-feat::before{content:'✓';color:var(--pear-d);font-weight:700;flex-shrink:0}
+.m-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2rem}
+.m-tag{background:var(--sand);color:var(--ink);font-size:.72rem;font-weight:500;padding:.35rem .9rem;border-radius:100px;border:1px solid var(--border)}
+.m-cta{margin-top:auto;display:flex;flex-direction:column;gap:.8rem}
+.m-order{
+  width:100%;padding:1.05rem;border-radius:100px;
+  background:var(--ink);color:var(--white);
+  font-size:.92rem;font-weight:600;border:none;cursor:pointer;
+  transition:background .2s,transform .2s;
+}
+.m-order:hover{background:#2a2a1a;transform:translateY(-1px)}
+.m-note{font-size:.75rem;color:#bbb;text-align:center}
+
+/* ─── ABOUT ──────────────────────────────────── */
+.about-hero{
+  position:relative;height:55vh;min-height:440px;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;text-align:center;
+}
+.about-hero-bg{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg, #0d1106 0%, #1a2508 40%, #0a0a06 100%) center/cover no-repeat;
+}
+.about-hero-ov{position:absolute;inset:0;background:rgba(10,10,6,.6)}
+.about-hero-cnt{position:relative;z-index:2;color:white;padding:2rem}
+.about-hero-cnt h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,7vw,6rem);font-weight:700;line-height:1}
+.about-hero-cnt h1 em{font-style:italic;color:var(--pear)}
+.about-hero-cnt p{font-size:1.05rem;color:rgba(255,255,255,.7);max-width:500px;margin:1.2rem auto 0;font-weight:300;line-height:1.7}
+.about-body{max-width:1200px;margin:0 auto;padding:5rem 4rem 6rem}
+.about-2col{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-bottom:5rem}
+.about-2col.flip{direction:rtl}
+.about-2col.flip>*{direction:ltr}
+.about-txt h2{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;margin-bottom:1rem}
+.about-txt p{color:var(--gray);font-size:.95rem;line-height:1.85;font-weight:300}
+.about-vis{
+  border-radius:20px;overflow:hidden;aspect-ratio:4/3;
+  background:var(--sand);display:flex;align-items:center;justify-content:center;
+}
+.about-vis img{width:100%;height:100%;object-fit:cover}
+.cat-icon{
+  position:absolute;font-size:clamp(5rem,9vw,7rem);opacity:0.15;
+  top:50%;left:50%;transform:translate(-50%,-58%);pointer-events:none;
+  transition:transform .4s,opacity .4s;
+}
+.cat-card:hover .cat-icon{transform:translate(-50%,-52%) scale(1.12);opacity:0.28;}
+.about-vis-ph{
+  font-size:6rem;display:flex;align-items:center;justify-content:center;
+  width:100%;height:100%;
+  background:linear-gradient(135deg,#f2edd8,#e6dfc4);
+}
+.vals{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:4rem}
+.val{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:2.5rem 2rem;text-align:center}
+.val-ico{font-size:2.5rem;margin-bottom:1rem}
+.val-t{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;margin-bottom:.5rem}
+.val-p{font-size:.85rem;color:var(--gray);line-height:1.65;font-weight:300}
+.about-cta-box{background:var(--ink);color:var(--white);border-radius:24px;padding:4rem;text-align:center}
+.about-cta-box h2{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-style:italic;margin-bottom:.8rem}
+.about-cta-box p{color:#aaa;font-size:.92rem;margin-bottom:2rem;line-height:1.75}
+
+/* ─── SEARCH ─────────────────────────────────── */
+.srch-page{max-width:1400px;margin:0 auto;padding:3.5rem 4rem 6rem}
+.srch-page h2{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;margin-bottom:.4rem}
+.srch-page p{color:var(--gray);font-size:.9rem;margin-bottom:3rem}
+.no-res{text-align:center;padding:5rem 2rem;color:var(--gray);grid-column:1/-1}
+.no-res .ico{font-size:4rem;margin-bottom:1rem}
+
+/* ─── FOOTER ─────────────────────────────────── */
+footer{
+  background:var(--ink);color:#555;
+  display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:3rem;
+  padding:5rem 4rem 3rem;
+}
+.ft-brand .logo{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.5rem;color:var(--pear);margin-bottom:1rem}
+.ft-brand p{font-size:.85rem;line-height:1.75;color:#555;max-width:280px}
+.ft-col h4{font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:#666;margin-bottom:1.2rem}
+.ft-col a{display:block;font-size:.88rem;color:#555;margin-bottom:.65rem;transition:color .2s;cursor:pointer}
+.ft-col a:hover{color:var(--pear)}
+.ft-bottom{
+  grid-column:1/-1;border-top:1px solid #1e1e16;
+  padding-top:2rem;text-align:center;font-size:.78rem;color:#333;
+}
+.ft-bottom span{color:var(--pear)}
+
+/* ─── RESPONSIVE ─────────────────────────────── */
+@media(max-width:1100px){
+  .section,.prod-page,.srch-page,.about-body{padding-left:2.5rem;padding-right:2.5rem}
+  .cat-row{padding-left:2.5rem;padding-right:2.5rem}
+  .grid-4{grid-template-columns:repeat(3,1fr)}
+  footer{padding:4rem 2.5rem 2.5rem}
+}
+@media(max-width:900px){
+  #nav{padding:0 1.5rem}
+  .n-links,.n-search{display:none}
+  .hbg{display:flex}
+  .hero-content{padding:0 2.5rem 3.5rem;flex-direction:column;align-items:flex-start}
+  .hero-stats{flex-direction:row;align-items:flex-start}
+  .hero-stat{text-align:left}
+  .grid-4{grid-template-columns:repeat(2,1fr)}
+  .grid-3{grid-template-columns:repeat(2,1fr)}
+  .cat-row{grid-template-columns:1fr;gap:1rem}
+  .modal{grid-template-columns:1fr}
+  .m-img{min-height:280px}
+  .about-2col,.about-2col.flip{grid-template-columns:1fr;direction:ltr}
+  .vals{grid-template-columns:1fr 1fr}
+  footer{grid-template-columns:1fr 1fr}
+  .ft-brand{grid-column:1/-1}
+}
+@media(max-width:600px){
+  .section,.prod-page,.srch-page,.about-body{padding-left:1.5rem;padding-right:1.5rem}
+  .cat-row{padding-left:1.5rem;padding-right:1.5rem}
+  .grid-4,.grid-3{grid-template-columns:repeat(2,1fr);gap:1rem}
+  .hero-title{font-size:clamp(3rem,12vw,5rem)}
+  .hero-stats{display:none}
+  footer{grid-template-columns:1fr;padding:3rem 1.5rem 2rem}
+  .ft-brand{grid-column:unset}
+  .vals{grid-template-columns:1fr}
+  .modal{border-radius:16px}
+  .m-body{padding:2rem 1.5rem}
+  .about-cta-box{padding:2.5rem 1.5rem}
+}
+@media(max-width:420px){
+  .grid-4,.grid-3{grid-template-columns:1fr}
+}
+
+/* ═══════════════════════════════════
+   DESIGNER PAGE
+═══════════════════════════════════ */
+#page-designer{ background:var(--white); }
+
+.dsgn-wrap{
+  display:grid;grid-template-columns:1fr 420px;
+  gap:0;max-width:1400px;margin:0 auto;
+  padding:3rem 4rem 6rem;
+}
+
+.dsgn-header{ margin-bottom:2.5rem; }
+.dsgn-eyebrow{ font-size:.7rem;letter-spacing:.4em;text-transform:uppercase;color:#aaa;margin-bottom:.5rem; }
+.dsgn-title{ font-family:"Cormorant Garamond",serif;font-size:clamp(2.2rem,4vw,3.2rem);font-weight:700;line-height:1.05; }
+.dsgn-title em{ font-style:italic;color:var(--pear-d); }
+
+.dsgn-step{ margin-bottom:2rem;padding-bottom:2rem;border-bottom:1px solid var(--border); }
+.step-label{
+  font-size:.85rem;font-weight:600;margin-bottom:1rem;
+  display:flex;align-items:center;gap:.6rem;
+}
+.step-num{
+  width:24px;height:24px;border-radius:50%;
+  background:var(--ink);color:var(--white);
+  font-size:.72rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+
+/* type grid */
+.type-grid{ display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem; }
+/* color row */
+.color-row{ display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:.6rem; }
+.clr-btn{
+  width:36px;height:36px;border-radius:50%;border:2.5px solid transparent;
+  cursor:pointer;transition:transform .15s,box-shadow .15s;
+  position:relative;flex-shrink:0;
+}
+.clr-btn:hover{ transform:scale(1.15); }
+.clr-btn.active{ border-color:var(--ink);box-shadow:0 0 0 2px var(--white),0 0 0 4px var(--ink); }
+.clr-custom{ cursor:pointer;position:relative;overflow:hidden; }
+.clr-custom input{ position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;border:none; }
+.color-name{ font-size:.8rem;color:var(--gray);font-weight:500; }
+
+/* size */
+.size-row{ display:flex;gap:.5rem;flex-wrap:wrap; }
+.size-btn{
+  min-width:52px;padding:.55rem 1rem;border-radius:8px;
+  border:1.5px solid var(--border);background:transparent;
+  font-size:.88rem;font-weight:600;cursor:pointer;
+  transition:all .18s;color:var(--gray);
+}
+.size-btn:hover{ border-color:var(--ink);color:var(--ink); }
+.size-btn.active{ background:var(--ink);color:var(--white);border-color:var(--ink); }
+
+/* form group */
+.fg{ display:flex;flex-direction:column;gap:.4rem; }
+.fg label{ font-size:.8rem;font-weight:600;color:var(--ink); }
+.fg input,.fg select,.fg textarea{
+  padding:.75rem 1rem;border:1.5px solid var(--border);
+  border-radius:10px;font-family:inherit;font-size:.88rem;
+  outline:none;transition:border-color .2s;color:var(--ink);background:var(--white);
+}
+.fg input:focus,.fg select:focus,.fg textarea:focus{ border-color:var(--pear-d); }
+
+/* type btn fix for emoji+span layout */
+.type-btn{ padding:.85rem .4rem;border-radius:12px;border:2px solid var(--border);
+  background:var(--white);display:flex;flex-direction:column;align-items:center;
+  gap:.35rem;font-size:.82rem;font-weight:500;color:var(--gray);cursor:pointer;transition:all .2s; }
+.type-btn:first-child{ margin:0; }
+.type-btn:hover{ border-color:var(--pear-d);color:var(--ink); }
+
+/* upload */
+.upload-area{
+  display:block;border:2px dashed var(--border);border-radius:12px;
+  cursor:pointer;transition:border-color .2s,background .2s;overflow:hidden;
+}
+.upload-area:hover{ border-color:var(--pear-d);background:#fafff0; }
+.upload-inner{
+  display:flex;flex-direction:column;align-items:center;
+  gap:.4rem;padding:2rem;text-align:center;
+}
+.upload-icon{ font-size:2rem; }
+.upload-text{ font-size:.88rem;font-weight:500;color:var(--ink); }
+.upload-sub{ font-size:.75rem;color:#aaa; }
+.upload-preview{
+  width:100%;max-height:140px;object-fit:contain;
+  padding:1rem;
+}
+
+/* notes */
+.dsgn-notes{
+  width:100%;min-height:90px;padding:1rem;
+  border:1.5px solid var(--border);border-radius:12px;
+  font-family:inherit;font-size:.88rem;resize:vertical;
+  outline:none;transition:border-color .2s;color:var(--ink);
+  background:var(--white);
+}
+.dsgn-notes:focus{ border-color:var(--pear-d); }
+
+.order-cta-btn{
+  width:100%;padding:1.1rem;border-radius:100px;
+  background:var(--ink);color:var(--white);
+  font-size:1rem;font-weight:600;border:none;cursor:pointer;
+  transition:background .2s,transform .2s;margin-top:.5rem;
+}
+.order-cta-btn:hover{ background:#2a2a1a;transform:translateY(-2px); }
+
+/* PREVIEW */
+.dsgn-right{ position:relative; }
+.preview-sticky{
+  position:sticky;top:90px;
+  background:var(--sand);border-radius:20px;
+  padding:2rem 1.5rem 1.5rem;
+  border:1px solid var(--border);
+}
+.preview-label{
+  font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;
+  color:#aaa;text-align:center;margin-bottom:1.2rem;
+}
+.preview-box{
+  background:var(--white);border-radius:14px;
+  aspect-ratio:1/1.2;display:flex;align-items:center;
+  justify-content:center;position:relative;overflow:hidden;
+  margin-bottom:1.2rem;box-shadow:0 4px 20px rgba(0,0,0,.06);
+}
+.preview-canvas{ width:75%;height:75%;display:flex;align-items:center;justify-content:center; }
+.preview-canvas svg{ width:100%;height:100%;transition:all .3s; }
+.preview-logo-wrap{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:28%;pointer-events:none;
+}
+.preview-logo-wrap img{ width:100%;height:auto;object-fit:contain; }
+.preview-info{
+  text-align:center;font-size:.82rem;color:var(--gray);
+  margin-bottom:.8rem;
+}
+.preview-badges{ display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap; }
+.prev-badge{
+  font-size:.65rem;font-weight:700;letter-spacing:.08em;
+  padding:.3rem .8rem;border-radius:100px;color:var(--ink);
+}
+
+/* ═══════════════════════════════════
+   ORDER MODAL
+═══════════════════════════════════ */
+.ord-ov{
+  position:fixed;inset:0;z-index:3000;
+  background:rgba(0,0,0,.6);backdrop-filter:blur(6px);
+  display:none;align-items:center;justify-content:center;
+  padding:1rem;overflow-y:auto;
+}
+.ord-ov.on{ display:flex; }
+.ord-modal{
+  background:var(--white);border-radius:24px;
+  width:100%;max-width:600px;
+  padding:2.5rem;position:relative;
+  animation:mIn .3s cubic-bezier(.34,1.56,.64,1);
+  max-height:90vh;overflow-y:auto;
+}
+.ord-close{
+  position:absolute;top:1.2rem;right:1.2rem;
+  width:36px;height:36px;border-radius:50%;
+  background:var(--sand);border:none;font-size:1rem;
+  cursor:pointer;transition:background .2s;
+  display:flex;align-items:center;justify-content:center;
+}
+.ord-close:hover{ background:var(--border); }
+.ord-header{ margin-bottom:1.5rem; }
+.ord-title{ font-family:"Cormorant Garamond",serif;font-size:1.8rem;font-weight:700; }
+.ord-sub{ font-size:.85rem;color:var(--gray);margin-top:.2rem; }
+
+/* summary */
+.ord-summary{
+  background:var(--sand);border-radius:12px;
+  padding:1.2rem 1.4rem;margin-bottom:1.5rem;
+  display:flex;flex-wrap:wrap;gap:.6rem;
+}
+.sum-item{
+  background:var(--white);border-radius:8px;
+  padding:.4rem .9rem;font-size:.8rem;font-weight:500;
+  border:1px solid var(--border);display:flex;align-items:center;gap:.4rem;
+}
+.sum-color-dot{ width:12px;height:12px;border-radius:50%;border:1px solid #ddd;flex-shrink:0; }
+
+/* form */
+.ord-form{ display:flex;flex-direction:column;gap:1rem;margin-bottom:1.2rem; }
+.form-row{ display:grid;grid-template-columns:1fr 1fr;gap:1rem; }
+.form-group{ display:flex;flex-direction:column;gap:.4rem; }
+.form-group label{ font-size:.8rem;font-weight:600;color:var(--ink); }
+.form-group input, .form-group select, .form-group textarea{
+  padding:.75rem 1rem;border:1.5px solid var(--border);
+  border-radius:10px;font-family:inherit;font-size:.88rem;
+  outline:none;transition:border-color .2s;color:var(--ink);background:var(--white);
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus{
+  border-color:var(--pear-d);
+}
+.form-group textarea{ min-height:70px;resize:vertical; }
+
+/* qty */
+.qty-row{ display:flex;align-items:center;gap:.8rem; }
+.qty-btn{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--sand);border:1.5px solid var(--border);
+  font-size:1.2rem;font-weight:600;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s;color:var(--ink);
+}
+.qty-btn:hover{ background:var(--border); }
+#qtyVal{ font-size:1.1rem;font-weight:700;min-width:24px;text-align:center; }
+
+/* emailjs note */
+.emailjs-note{
+  background:#fff8e1;border:1px solid #ffe082;
+  border-radius:10px;padding:.9rem 1rem;
+  font-size:.78rem;color:#7a6000;margin-bottom:1.2rem;
+  line-height:1.6;
+}
+.emailjs-note a{ color:var(--pear-d);font-weight:600; }
+
+.submit-btn{
+  width:100%;padding:1.1rem;border-radius:100px;
+  background:var(--ink);color:var(--white);
+  font-size:1rem;font-weight:600;border:none;cursor:pointer;
+  transition:background .2s,transform .2s;
+}
+.submit-btn:hover{ background:#2a2a1a;transform:translateY(-1px); }
+.submit-btn:disabled{ background:#aaa;cursor:not-allowed;transform:none; }
+
+.ord-success{ text-align:center;padding:2rem 0; }
+.success-icon{ font-size:4rem;margin-bottom:1rem; }
+.success-title{ font-family:"Cormorant Garamond",serif;font-size:2rem;font-weight:700;margin-bottom:.5rem; }
+.success-sub{ color:var(--gray);font-size:.9rem; }
+
+@media(max-width:960px){
+  .dsgn-wrap{ grid-template-columns:1fr;padding:2rem 2rem 4rem; }
+  .dsgn-right{ order:-1; }
+  .preview-sticky{ position:static;margin-bottom:2rem; }
+  .preview-box{ aspect-ratio:2/1; }
+}
+@media(max-width:600px){
+  .type-grid{ grid-template-columns:repeat(3,1fr); }
+  .form-row{ grid-template-columns:1fr; }
+  .ord-modal{ padding:1.8rem 1.3rem; }
+}
+
+
+/* ═══════════════ AUTH ═══════════════ */
+.auth-wrap{position:relative;flex-shrink:0}
+
+.auth-login-btn{
+  display:flex;align-items:center;gap:.45rem;
+  padding:.46rem 1.15rem;border-radius:100px;
+  border:1.5px solid var(--border);background:var(--white);
+  font-family:inherit;font-size:.86rem;font-weight:500;color:var(--ink);
+  cursor:pointer;transition:all .2s;white-space:nowrap;
+}
+.auth-login-btn:hover{border-color:var(--ink);background:var(--sand)}
+
+.auth-avatar-btn{
+  width:36px;height:36px;border-radius:50%;
+  border:2.5px solid var(--pear);background:var(--sand);
+  overflow:hidden;cursor:pointer;transition:box-shadow .2s;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.95rem;font-weight:700;color:var(--pear-d);
+}
+.auth-avatar-btn img{width:100%;height:100%;object-fit:cover}
+.auth-avatar-btn:hover{box-shadow:0 0 0 3px var(--pear-l)}
+
+.auth-dd{
+  position:absolute;top:calc(100% + 10px);right:0;
+  background:var(--white);border:1px solid var(--border);
+  border-radius:16px;box-shadow:0 16px 48px rgba(0,0,0,.13);
+  min-width:230px;z-index:1200;
+  opacity:0;pointer-events:none;transform:translateY(-8px);
+  transition:opacity .2s,transform .2s;
+}
+.auth-dd.open{opacity:1;pointer-events:all;transform:translateY(0)}
+.auth-dd-head{padding:1.1rem 1.3rem .85rem;border-bottom:1px solid var(--border)}
+.auth-dd-name{font-weight:600;font-size:.93rem}
+.auth-dd-email{font-size:.73rem;color:#aaa;margin-top:.15rem;word-break:break-all}
+.auth-dd-item{
+  display:flex;align-items:center;gap:.65rem;
+  padding:.78rem 1.3rem;font-size:.87rem;color:var(--gray);
+  cursor:pointer;transition:background .15s;
+}
+.auth-dd-item:hover{background:var(--sand);color:var(--ink)}
+.auth-dd-item.danger{border-top:1px solid var(--border);color:#c00}
+
+/* ── AUTH MODAL ── */
+.auth-ov{
+  position:fixed;inset:0;z-index:5000;
+  background:rgba(0,0,0,.62);backdrop-filter:blur(10px);
+  display:none;align-items:center;justify-content:center;padding:1.5rem;
+}
+.auth-ov.on{display:flex}
+.auth-box{
+  background:var(--white);border-radius:28px;
+  width:100%;max-width:430px;padding:2.8rem 2.5rem 2.4rem;
+  position:relative;box-shadow:0 40px 100px rgba(0,0,0,.28);
+  animation:mIn .35s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes mIn{from{opacity:0;transform:scale(.88) translateY(24px)}to{opacity:1;transform:none}}
+.auth-x{
+  position:absolute;top:1.1rem;right:1.1rem;
+  width:33px;height:33px;border-radius:50%;
+  background:var(--sand);border:none;font-size:1rem;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:background .2s;color:var(--gray);
+}
+.auth-x:hover{background:var(--border)}
+.auth-pear{font-size:2.6rem;text-align:center;margin-bottom:.5rem}
+.auth-title{
+  font-family:'Cormorant Garamond',serif;font-size:1.95rem;font-weight:700;
+  text-align:center;margin-bottom:.25rem;
+}
+.auth-sub{font-size:.82rem;color:#aaa;text-align:center;margin-bottom:1.6rem}
+.auth-notice{
+  background:#fffde7;border:1px solid #ffe082;border-radius:10px;
+  padding:.7rem 1rem;font-size:.76rem;color:#7a5f00;
+  line-height:1.65;margin-bottom:1.1rem;display:none;
+}
+.auth-notice a{color:var(--pear-d);font-weight:600}
+.auth-social{
+  width:100%;padding:.82rem 1rem;border-radius:12px;
+  border:1.5px solid var(--border);background:var(--white);
+  display:flex;align-items:center;gap:.8rem;
+  font-family:inherit;font-size:.9rem;font-weight:500;
+  cursor:pointer;transition:all .2s;margin-bottom:.7rem;color:var(--ink);
+}
+.auth-social:hover{border-color:var(--ink);background:var(--sand);transform:translateY(-1px)}
+.auth-social svg{width:20px;height:20px;flex-shrink:0}
+.auth-or{
+  display:flex;align-items:center;gap:.9rem;
+  margin:.3rem 0 1rem;color:#ccc;font-size:.76rem;
+}
+.auth-or::before,.auth-or::after{content:'';flex:1;height:1px;background:var(--border)}
+.auth-err{font-size:.79rem;color:#c00;text-align:center;min-height:1.1em;margin-bottom:.4rem}
+.auth-field{
+  width:100%;padding:.8rem 1.1rem;border-radius:10px;
+  border:1.5px solid var(--border);font-family:inherit;font-size:.9rem;
+  outline:none;transition:border-color .2s;color:var(--ink);
+  background:var(--white);margin-bottom:.7rem;display:block;
+  box-sizing:border-box;
+}
+.auth-field:focus{border-color:var(--pear-d)}
+.auth-btn{
+  width:100%;padding:.92rem;border-radius:100px;
+  background:var(--ink);color:var(--white);
+  font-family:inherit;font-size:.92rem;font-weight:600;
+  border:none;cursor:pointer;transition:all .2s;margin-top:.15rem;
+}
+.auth-btn:hover{background:#2a2a1a;transform:translateY(-1px)}
+.auth-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.auth-switch{text-align:center;font-size:.81rem;color:#aaa;margin-top:1rem}
+.auth-switch a{color:var(--pear-d);cursor:pointer;font-weight:600}
+
+/* ── PROFILE PAGE ── */
+#page-profile{background:var(--white)}
+.prof-wrap{max-width:860px;margin:0 auto;padding:3.5rem 3rem 6rem}
+.prof-hero{
+  display:flex;align-items:center;gap:2rem;
+  padding:2.2rem 2.5rem;background:var(--sand);
+  border-radius:20px;margin-bottom:2.5rem;flex-wrap:wrap;
+}
+.prof-ava{
+  width:86px;height:86px;border-radius:50%;
+  border:3px solid var(--pear);background:var(--white);
+  display:flex;align-items:center;justify-content:center;
+  font-size:2rem;font-weight:700;color:var(--pear-d);
+  flex-shrink:0;overflow:hidden;
+}
+.prof-ava img{width:100%;height:100%;object-fit:cover}
+.prof-info h2{font-family:'Cormorant Garamond',serif;font-size:1.85rem;font-weight:700}
+.prof-info p{font-size:.83rem;color:var(--gray);margin-top:.2rem}
+.prof-badge{
+  display:inline-flex;align-items:center;gap:.35rem;
+  background:var(--pear);color:var(--ink);
+  font-size:.66rem;font-weight:700;letter-spacing:.1em;
+  padding:.28rem .85rem;border-radius:100px;margin-top:.55rem;
+}
+.prof-stitle{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.25rem;font-weight:700;margin-bottom:1.1rem;
+}
+.prof-empty{
+  text-align:center;padding:2.8rem;
+  background:var(--sand);border-radius:16px;color:var(--gray);
+}
+.prof-empty .ei{font-size:2.8rem;margin-bottom:.7rem}
+.prof-actions{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:2rem}
+.prof-btn{
+  padding:.72rem 1.8rem;border-radius:100px;
+  font-family:inherit;font-size:.88rem;font-weight:600;
+  cursor:pointer;transition:all .2s;border:1.5px solid var(--border);
+}
+.prof-btn.dark{background:var(--ink);color:#fff;border-color:var(--ink)}
+.prof-btn.dark:hover{background:#2a2a1a}
+.prof-btn.ghost{background:transparent;color:var(--gray)}
+.prof-btn.ghost:hover{border-color:var(--ink);color:var(--ink)}
+
+
+/* ═══════════════ ADMIN PANEL ═══════════════ */
+#adminLock{
+  position:fixed;inset:0;z-index:9000;background:var(--ink);
+  display:none;align-items:center;justify-content:center;
+}
+.alock-box{
+  background:#1a1a14;border:1px solid #2a2a20;border-radius:20px;
+  padding:3rem 2.5rem;width:100%;max-width:360px;text-align:center;
+}
+.alock-box h2{font-family:'Cormorant Garamond',serif;font-size:1.9rem;color:#fff;margin-bottom:.25rem}
+.alock-box p{font-size:.83rem;color:#555;margin-bottom:1.8rem}
+.alock-box input{
+  width:100%;padding:.82rem 1.2rem;border-radius:100px;
+  background:#111;border:1.5px solid #333;color:#fff;
+  font-family:inherit;font-size:1rem;text-align:center;letter-spacing:.2em;
+  outline:none;margin-bottom:.9rem;transition:border-color .2s;box-sizing:border-box;
+}
+.alock-box input:focus{border-color:var(--pear-d)}
+.alock-box button{
+  width:100%;padding:.88rem;border-radius:100px;
+  background:var(--pear);color:var(--ink);
+  font-weight:700;font-size:.95rem;border:none;cursor:pointer;
+}
+.alock-err{color:#ff6b6b;font-size:.82rem;margin-top:.5rem;min-height:1.2em}
+
+#page-admin{background:#f5f4ef}
+.adm-wrap{max-width:1200px;margin:0 auto;padding:3rem 3rem 6rem}
+.adm-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:2.5rem;flex-wrap:wrap;gap:1rem}
+.adm-top h1{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700}
+.adm-top h1 em{color:var(--pear-d);font-style:italic}
+.adm-stats{display:flex;gap:.8rem;flex-wrap:wrap}
+.adm-stat{background:#fff;border:1px solid var(--border);border-radius:12px;padding:.65rem 1.3rem;text-align:center}
+.adm-stat-n{font-size:1.5rem;font-weight:700;font-family:'Cormorant Garamond',serif}
+.adm-stat-l{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:#aaa}
+.adm-card{background:#fff;border:1px solid var(--border);border-radius:20px;padding:2rem;margin-bottom:2rem}
+.adm-card h2{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;margin-bottom:1.5rem}
+.adm-grid{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-bottom:.9rem}
+.adm-fg{display:flex;flex-direction:column;gap:.32rem}
+.adm-fg.full{grid-column:1/-1}
+.adm-fg label{font-size:.75rem;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.05em}
+.adm-fg input,.adm-fg select,.adm-fg textarea{
+  padding:.7rem 1rem;border:1.5px solid var(--border);border-radius:10px;
+  font-family:inherit;font-size:.87rem;outline:none;
+  background:#fafaf5;color:var(--ink);transition:border-color .2s;
+}
+.adm-fg input:focus,.adm-fg select:focus,.adm-fg textarea:focus{border-color:var(--pear-d)}
+.adm-fg textarea{min-height:68px;resize:vertical}
+.adm-photo-label{
+  border:2px dashed var(--border);border-radius:12px;
+  cursor:pointer;transition:all .2s;
+  display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;background:#fafaf5;
+}
+.adm-photo-label:hover{border-color:var(--pear-d);background:#fafff0}
+.adm-photo-thumb{
+  width:58px;height:58px;border-radius:8px;border:1px solid var(--border);
+  background:var(--sand);display:flex;align-items:center;justify-content:center;
+  font-size:1.5rem;flex-shrink:0;overflow:hidden;
+}
+.adm-photo-thumb img{width:100%;height:100%;object-fit:cover}
+.adm-add-btn{
+  width:100%;padding:.92rem;border-radius:100px;background:var(--ink);color:#fff;
+  font-size:.93rem;font-weight:600;border:none;cursor:pointer;transition:all .2s;margin-top:.4rem;
+}
+.adm-add-btn:hover{background:#2a2a1a;transform:translateY(-1px)}
+.adm-prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem}
+.adm-p-card{background:#fff;border:1px solid var(--border);border-radius:16px;overflow:hidden;position:relative;transition:box-shadow .2s}
+.adm-p-card:hover{box-shadow:0 8px 28px rgba(0,0,0,.09)}
+.adm-p-img{height:150px;background:var(--sand);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.adm-p-img img{width:100%;height:100%;object-fit:cover}
+.adm-p-img .svg-w{width:55%;height:55%}
+.adm-p-img .svg-w svg{width:100%;height:100%}
+.adm-p-del{position:absolute;top:.55rem;right:.55rem;width:27px;height:27px;border-radius:50%;background:rgba(180,0,0,.88);color:#fff;border:none;font-size:.8rem;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s}
+.adm-p-card:hover .adm-p-del{opacity:1}
+.adm-p-body{padding:.9rem 1rem}
+.adm-p-en{font-size:.72rem;color:#aaa;margin-bottom:.2rem}
+.adm-p-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700}
+.adm-p-desc{font-size:.76rem;color:var(--gray);margin-top:.25rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.adm-orders-table{width:100%;border-collapse:collapse;font-size:.85rem}
+.adm-orders-table th{text-align:left;padding:.7rem 1rem;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#aaa;border-bottom:2px solid var(--border)}
+.adm-orders-table td{padding:.85rem 1rem;border-bottom:1px solid var(--border);vertical-align:middle}
+.adm-orders-table tr:last-child td{border-bottom:none}
+.adm-orders-table tr:hover td{background:#fafff0}
+.adm-badge{font-size:.65rem;font-weight:700;padding:.22rem .7rem;border-radius:100px}
+.adm-badge.new{background:#eef5cc;color:#4a6800}
+.adm-logout{padding:.52rem 1.3rem;border-radius:100px;background:transparent;border:1.5px solid #333;color:#666;font-size:.82rem;cursor:pointer;transition:all .2s}
+.adm-logout:hover{border-color:var(--ink);color:var(--ink)}
+@media(max-width:900px){.adm-wrap{padding:2rem 1.5rem 4rem}.adm-grid{grid-template-columns:1fr}.adm-prod-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.adm-prod-grid{grid-template-columns:1fr}}
+
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="module">
+import { initializeApp }                                          from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+import { getAuth, GoogleAuthProvider, OAuthProvider,
+         signInWithPopup, createUserWithEmailAndPassword,
+         signInWithEmailAndPassword, signOut,
+         onAuthStateChanged, updateProfile }                      from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+
+/* ═══════════════════════════════════════════
+   🔥 FIREBASE CONFIG
+   1. console.firebase.google.com
+   2. პროექტი → Add Web App → copy config
+   3. Authentication → Sign-in methods:
+      ✅ Google  ✅ Apple  ✅ Email/Password
+═══════════════════════════════════════════ */
+const cfg = {
+  apiKey:            "AIzaSyBYPulKXm9KA-rZ4oW4MS5KZ4aCLdIgmTk",
+  authDomain:        "sonsofpear-51102.firebaseapp.com",
+  projectId:         "sonsofpear-51102",
+  storageBucket:     "sonsofpear-51102.firebasestorage.app",
+  messagingSenderId: "115742302018",
+  appId:             "1:115742302018:web:69d5b596dd7d70ae0672db",
+  measurementId:     "G-2L7CSS0GH6"
+};
+
+if(cfg.apiKey === "YOUR_API_KEY"){
+  window._fbReady = false;
+  console.warn("Sons of Pear: შეავსე Firebase config auth-ისთვის");
+} else {
+  const app  = initializeApp(cfg);
+  const auth = getAuth(app);
+  const gp   = new GoogleAuthProvider();
+  const ap   = new OAuthProvider("apple.com");
+
+  onAuthStateChanged(auth, u => window._authChange(u));
+
+  window._fbReady = true;
+  window._fb = {
+    google:   ()=> signInWithPopup(auth, gp).then(r=>r.user),
+    apple:    ()=> signInWithPopup(auth, ap).then(r=>r.user),
+    login:    (e,p)=> signInWithEmailAndPassword(auth,e,p).then(r=>r.user),
+    register: async(e,p,n)=>{
+      const r = await createUserWithEmailAndPassword(auth,e,p);
+      if(n) await updateProfile(r.user,{displayName:n});
+      return r.user;
+    },
+    logout:   ()=> signOut(auth),
+  };
+}
+</script>
+
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav id="nav">
+  <div class="n-logo"><svg class="brand-svg" viewBox="0 0 220 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- pear icon -->
+  <g transform="translate(0,2)">
+    <ellipse cx="18" cy="28" rx="11" ry="13" fill="#c9db3f"/>
+    <ellipse cx="18" cy="18" rx="7" ry="8" fill="#c9db3f"/>
+    <path d="M18 10 Q20 4 24 2" stroke="#9aab1a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+    <ellipse cx="14" cy="24" rx="3" ry="4" fill="rgba(255,255,255,0.2)"/>
+  </g>
+  <!-- wordmark -->
+  <text x="36" y="22" font-family="'Cormorant Garamond',serif" font-size="15" font-weight="700" fill="currentColor" letter-spacing="3">SONS OF</text>
+  <text x="36" y="40" font-family="'Cormorant Garamond',serif" font-size="20" font-weight="700" font-style="italic" fill="#c9db3f" letter-spacing="2">PEAR</text>
+</svg></div>
+  <ul class="n-links">
+    <li><a class="nlink act" data-page="home">Home</a></li>
+    <li><a class="nlink" data-page="products">Products</a></li>
+    <li><a class="nlink" data-page="about">About Us</a></li>
+    <li><a class="nlink" data-page="designer" style="background:var(--pear);color:var(--ink);font-weight:600">✏️ Designer</a></li>
+  </ul>
+  <div class="n-search">
+    <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input id="si" type="text" placeholder="პროდუქტის ძიება...">
+  </div>
+  <div class="auth-wrap" id="authWrap">
+    <!-- logged out -->
+    <button class="auth-login-btn" id="authLoginBtn" onclick="openAuth()">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      შესვლა
+    </button>
+    <!-- logged in -->
+    <div id="authLoggedIn" style="display:none;position:relative">
+      <button class="auth-avatar-btn" id="authAva" onclick="toggleDd()">👤</button>
+      <div class="auth-dd" id="authDd">
+        <div class="auth-dd-head">
+          <div class="auth-dd-name" id="ddName"></div>
+          <div class="auth-dd-email" id="ddEmail"></div>
+        </div>
+        <div class="auth-dd-item" onclick="goProfile()">👤 ჩემი პროფილი</div>
+        <div class="auth-dd-item" onclick="showPage('designer');closeDd()">✏️ Designer</div>
+        <div class="auth-dd-item danger" onclick="doLogout()">🚪 გასვლა</div>
+      </div>
+    </div>
+  </div>
+  <button class="hbg" id="hbg"><span></span><span></span><span></span></button>
+</nav>
+<div class="mob" id="mob">
+  <a class="nlink" data-page="home">🏠 Home</a>
+  <a class="nlink" data-page="products">👕 Products</a>
+  <a class="nlink" data-page="about">🍐 About Us</a>
+  <a class="nlink" data-page="designer" style="background:var(--pear);color:var(--ink);font-weight:600;border-radius:12px">✏️ Designer</a>
+  <div class="mob-srch">
+    <svg width="15" height="15" fill="none" stroke="#999" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input id="msi" type="text" placeholder="ძიება...">
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     HOME
+════════════════════════════════ -->
+<div class="page act" id="page-home">
+
+  <!-- HERO — full width fashion photo -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="hero-eyebrow">🍐 SONS OF PEAR · Custom Fashion · Georgia · 2025</div>
+        <h1 class="hero-title">Sons of<br><em>Pear</em></h1>
+        <p class="hero-sub">შექმენი ტანსაცმელი, რომელიც მართლაც შენია — შენი ფერებით, შენი დიზაინით, შენი ხელმოწერით.</p>
+        <div class="hero-btns">
+          <button class="btn btn-light nlink" data-page="products">პროდუქტები →</button>
+          <button class="btn btn-outline nlink" data-page="about">ჩვენ შესახებ</button>
+        </div>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-num">9+</div>
+          <div class="hero-stat-label">პროდუქტი</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">100%</div>
+          <div class="hero-stat-label">Custom</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">🇬🇪</div>
+          <div class="hero-stat-label">Made in Georgia</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <svg width="16" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 16 24"><rect x="1" y="1" width="14" height="22" rx="7"/><circle cx="8" cy="7" r="2" fill="currentColor"/></svg>
+      გადაახვიე
+    </div>
+  </section>
+
+  <!-- STRIP -->
+  <div class="strip"><div class="strip-track" id="st"></div></div>
+
+  <!-- CATEGORY CARDS -->
+  <div style="padding:5rem 4rem 0;max-width:1400px;margin:0 auto">
+    <div class="sec-eyebrow">კატეგორიები</div>
+    <div class="sec-title" style="margin-bottom:2.5rem">იპოვე შენი სტილი</div>
+  </div>
+  <div class="cat-row">
+    <div class="cat-card" onclick="goProducts('ზემო')" style="background:linear-gradient(145deg,#1a2508,#2d3a10)">
+      <div class="cat-icon">🧥</div>
+      <div class="cat-overlay"></div>
+      <div class="cat-pear">NEW</div>
+      <div class="cat-text"><h3>ზემო ტანი</h3><p>ჰუდი · მაისური · ქურთუკი</p></div>
+    </div>
+    <div class="cat-card" onclick="goProducts('ქვემო')" style="background:linear-gradient(145deg,#111109,#1e1e16)">
+      <div class="cat-icon">👖</div>
+      <div class="cat-overlay"></div>
+      <div class="cat-text"><h3>ქვემო ტანი</h3><p>შარვალი · Custom Cut</p></div>
+    </div>
+    <div class="cat-card" onclick="goProducts('აქსესუარი')" style="background:linear-gradient(145deg,#0d1a0a,#162610)">
+      <div class="cat-icon">👜</div>
+      <div class="cat-overlay"></div>
+      <div class="cat-text"><h3>აქსესუარი</h3><p>ჩანთა · ქუდი · წინდები</p></div>
+    </div>
+  </div>
+
+  <!-- FEATURED -->
+  <section class="section">
+    <div class="sec-row">
+      <div>
+        <div class="sec-eyebrow">Featured Collection</div>
+        <div class="sec-title">პოპულარული ✦</div>
+      </div>
+      <button class="see-all nlink" data-page="products">ყველა პროდუქტი →</button>
+    </div>
+    <div class="grid-4" id="homeGrid"></div>
+  </section>
+
+  <!-- WHY US BANNER -->
+  <div style="background:var(--ink);color:white;padding:5rem 4rem;margin:0">
+    <div style="max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center">
+      <div>
+        <div style="font-size:2.5rem;margin-bottom:.8rem">🎨</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;margin-bottom:.4rem">Custom Design</div>
+        <div style="font-size:.83rem;color:#666;line-height:1.6">შენი ფერი, ნახაზი, ლოგო</div>
+      </div>
+      <div>
+        <div style="font-size:2.5rem;margin-bottom:.8rem">⭐</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;margin-bottom:.4rem">Premium ხარისხი</div>
+        <div style="font-size:.83rem;color:#666;line-height:1.6">მაღალი ხარისხის ქსოვილები</div>
+      </div>
+      <div>
+        <div style="font-size:2.5rem;margin-bottom:.8rem">🚀</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;margin-bottom:.4rem">სწრაფი მიტანა</div>
+        <div style="font-size:.83rem;color:#666;line-height:1.6">საქართველოს მასშტაბით</div>
+      </div>
+      <div>
+        <div style="font-size:2.5rem;margin-bottom:.8rem">🤝</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;margin-bottom:.4rem">პირადი სერვისი</div>
+        <div style="font-size:.83rem;color:#666;line-height:1.6">გვიამბე იდეა — ჩვენ ვაკეთებთ</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALL PRODUCTS TEASER -->
+  <section class="section">
+    <div class="sec-row">
+      <div>
+        <div class="sec-eyebrow">სრული კოლექცია</div>
+        <div class="sec-title">ყველა პროდუქტი ✦</div>
+      </div>
+      <button class="see-all nlink" data-page="products">ფილტრი + ↗</button>
+    </div>
+    <div class="grid-3" id="homeGrid2"></div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <div style="background:var(--pear);padding:5rem 4rem;text-align:center">
+    <div style="max-width:700px;margin:0 auto">
+      <div style="font-size:3rem;margin-bottom:1rem">🍐</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:700;margin-bottom:1rem">შეუკვეთე შენი ტანსაცმელი</h2>
+      <p style="font-size:1rem;color:rgba(0,0,0,.6);max-width:480px;margin:0 auto 2.5rem;line-height:1.7">მოგვწერე პირად ან დაგვიკავშირდი ბიოში მოცემულ ნომერზე</p>
+      <button class="btn btn-dark" onclick="alert('📲 გთხოვ დაგვიკავშირდე ბიოში მოცემულ ნომერზე!')">📲 დაგვიკავშირდი ახლა</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     PRODUCTS
+════════════════════════════════ -->
+<div class="page" id="page-products">
+  <div class="prod-page">
+    <div class="prod-head">
+      <h1>ყველა პროდუქტი</h1>
+      <p>აირჩიე, მოგვწერე — დავამზადებთ შენი სურვილით 🍐</p>
+    </div>
+    <div class="filter-bar">
+      <button class="f-btn act" data-cat="all">ყველა</button>
+      <button class="f-btn" data-cat="ზემო">ზემო ტანი</button>
+      <button class="f-btn" data-cat="ქვემო">ქვემო ტანი</button>
+      <button class="f-btn" data-cat="აქსესუარი">აქსესუარი</button>
+      <span class="prod-cnt" id="pcnt"></span>
+    </div>
+    <div class="grid-3" id="prodGrid"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     SEARCH
+════════════════════════════════ -->
+<div class="page" id="page-search">
+  <div class="srch-page">
+    <h2 id="sTitle"></h2>
+    <p id="sSub"></p>
+    <div class="grid-3" id="srchGrid"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     ABOUT
+════════════════════════════════ -->
+<div class="page" id="page-about">
+  <div class="about-hero">
+    <div class="about-hero-bg"></div>
+    <div class="about-hero-ov"></div>
+    <div class="about-hero-cnt">
+      <h1>Sons of <em>Pear</em></h1>
+      <p>SONS OF PEAR — ქართული custom fashion ბრენდი, სადაც შენი იდეა ხდება რეალობა.</p>
+    </div>
+  </div>
+  <div class="about-body">
+    <div class="about-2col">
+      <div class="about-txt">
+        <h2>ვინ ვართ ჩვენ</h2>
+        <p>Sons of Pear დაიბადა იმ იდეით, რომ ყველა ადამიანს უნდა ჰქონდეს შესაძლებლობა ატაროს ტანსაცმელი, რომელიც მართლაც მისია.<br><br>ჩვენ ვამზადებთ ინდივიდუალურ ტანსაცმელს — მაისურებს, ჰუდებს, შარვლებს, ჩანთებს და სხვა — სრულად შენი სურვილების მიხედვით.</p>
+      </div>
+      <div class="about-vis">
+        
+      </div>
+    </div>
+    <div class="about-2col flip">
+      <div class="about-txt">
+        <h2>როგორ ვმუშაობთ</h2>
+        <p>პროცესი მარტივია: მოგვწერე პირად შეტყობინებაში ან დაგვიკავშირდი ნომერზე. გვიამბე შენი იდეა — ჩვენ ვუზრუნველყოფთ დიზაინს, წარმოებას და მიტანას.<br><br>თითოეული შეკვეთა უნიკალურია და იქმნება სპეციალურად შენთვის.</p>
+      </div>
+      <div class="about-vis">
+        
+      </div>
+    </div>
+    <div class="vals">
+      <div class="val"><div class="val-ico">🎨</div><div class="val-t">Custom Design</div><div class="val-p">შენი ფერი, შენი ნახაზი, შენი ლოგო — ყველაფერი შეიძლება.</div></div>
+      <div class="val"><div class="val-ico">⭐</div><div class="val-t">Premium ხარისხი</div><div class="val-p">მხოლოდ მაღალი ხარისხის ქსოვილები და მასალები.</div></div>
+      <div class="val"><div class="val-ico">🚀</div><div class="val-t">სწრაფი მიტანა</div><div class="val-p">სწრაფი წარმოება და საქართველოს მასშტაბით მიტანა.</div></div>
+    </div>
+    <div class="about-cta-box">
+      <h2>დაიწყე შეკვეთა</h2>
+      <p>მოგვწერე პირად ან დაგვიკავშირდი ბიოში მოცემულ ნომერზე.<br>გიპასუხებთ სწრაფად!</p>
+      <button class="btn btn-pear" onclick="alert('📲 გთხოვ დაგვიკავშირდე ბიოში მოცემულ ნომერზე!')">📲 დაგვიკავშირდი</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     FOOTER
+════════════════════════════════ -->
+<footer>
+  <div class="ft-brand">
+    <div class="logo" style="margin-bottom:1rem"><svg class="brand-svg" viewBox="0 0 220 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(0,2)">
+    <ellipse cx="18" cy="28" rx="11" ry="13" fill="#c9db3f"/>
+    <ellipse cx="18" cy="18" rx="7" ry="8" fill="#c9db3f"/>
+    <path d="M18 10 Q20 4 24 2" stroke="#9aab1a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+    <ellipse cx="14" cy="24" rx="3" ry="4" fill="rgba(255,255,255,0.2)"/>
+  </g>
+  <text x="36" y="22" font-family="'Cormorant Garamond',serif" font-size="15" font-weight="700" fill="#fafaf5" letter-spacing="3">SONS OF</text>
+  <text x="36" y="40" font-family="'Cormorant Garamond',serif" font-size="20" font-weight="700" font-style="italic" fill="#c9db3f" letter-spacing="2">PEAR</text>
+</svg></div>
+    <p>Custom Fashion · Georgia · 2025<br>ყოველი ნივთი — სპეციალურად შენთვის. შენი ფერი, შენი სტილი.</p>
+  </div>
+  <div class="ft-col">
+    <h4>ნავიგაცია</h4>
+    <a class="nlink" data-page="home">Home</a>
+    <a class="nlink" data-page="products">Products</a>
+    <a class="nlink" data-page="about">About Us</a>
+    <a class="nlink" data-page="designer">✏️ Designer</a>
+  </div>
+  <div class="ft-col">
+    <h4>კატეგორია</h4>
+    <a onclick="goProducts('ზემო')">ზემო ტანი</a>
+    <a onclick="goProducts('ქვემო')">ქვემო ტანი</a>
+    <a onclick="goProducts('აქსესუარი')">აქსესუარი</a>
+  </div>
+  <div class="ft-bottom"><span>SONS OF PEAR</span> · Custom Fashion · Georgia · 2025 · ყველა უფლება დაცულია</div>
+</footer>
+
+<!-- ════════════════════════════════
+     MODAL
+════════════════════════════════ -->
+<div class="m-ov" id="mOv">
+  <div class="modal" id="modal">
+    <div class="m-img" id="mImg"></div>
+    <div class="m-body">
+      <button class="m-x" id="mX">✕</button>
+      <div class="m-cat" id="mCat"></div>
+      <div class="m-name" id="mName"></div>
+      <div class="m-div"></div>
+      <div class="m-desc" id="mDesc"></div>
+      <div class="m-features" id="mFeats"></div>
+      <div class="m-tags" id="mTags"></div>
+      <div class="m-cta">
+        <button class="m-order" id="mOrderBtn" onclick="openOrderFromProduct()">🛒 შეკვეთის გაფორმება</button>
+        <div class="m-note">🍐 ყოველი ნივთი მზადდება სპეციალურად შენთვის</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     JS
+════════════════════════════════ -->
+<script>
+/* ── DATA ─────────────────────────────────────── */
+const P = [
+  {id:1,name:"ჰუდი",en:"Hoodie",cat:"ზემო",badge:"HOT",
+   desc:"Oversized კაპიუშონიანი ჯემპერი — კომფორტი და სტილი.",
+   full:"Oversized კაპიუშონიანი ჯემპერი. კენგურუს ჯიბე, ნაქსოვი კიდეები, ბაწრები. შენი ლოგო, შენი ფერი — ყველაფერი შეიძლება. Premium fleece ქსოვილი.",
+   feats:["Oversized ჭრა","კენგურუს ჯიბე","Premium Fleece","Custom Print / Embroidery","Unisex"],
+   tags:["Hoodie","Oversized","Custom","Fleece"],
+   photo:null,
+   svg:`<svg viewBox="0 0 260 300" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M82 88L42 115 24 225h212l-18-110-40-27" fill="#c9db3f" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/><path d="M42 115 8 185l26 10 26-55" fill="#c9db3f" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/><path d="M218 115l34 70-26 10-26-55" fill="#c9db3f" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/><path d="M88 88c0-52 84-52 84 0l6-0c0-60-96-60-96 0z" fill="#adc230" stroke="#111" stroke-width="2.5"/><rect x="92" y="168" width="76" height="42" rx="5" fill="#adc230" stroke="#111" stroke-width="2"/><line x1="130" y1="168" x2="130" y2="210" stroke="#111" stroke-width="1.5"/><line x1="118" y1="86" x2="112" y2="130" stroke="#111" stroke-width="2"/><line x1="142" y1="86" x2="148" y2="130" stroke="#111" stroke-width="2"/><circle cx="112" cy="132" r="3.5" fill="#111"/><circle cx="148" cy="132" r="3.5" fill="#111"/><rect x="24" y="218" width="212" height="9" rx="3" fill="#adc230" stroke="#111" stroke-width="1.5"/><rect x="8" y="188" width="28" height="8" rx="3" fill="#adc230" stroke="#111" stroke-width="1.5"/><rect x="224" y="188" width="28" height="8" rx="3" fill="#adc230" stroke="#111" stroke-width="1.5"/><text x="130" y="158" text-anchor="middle" font-size="28">🍐</text></svg>`},
+  {id:2,name:"მაისური",en:"T-Shirt",cat:"ზემო",badge:null,
+   desc:"Unisex ჭრა, 100% premium cotton. გრაფიკული პრინტი.",
+   full:"კლასიკური ან oversized ჭრა — შენი სურვილით. 100% Premium Cotton. გრაფიკული პრინტი, ნაქარგი, ან სუბლიმაცია.",
+   feats:["Regular / Oversized","100% Cotton","Graphic Print","Embroidery available","All sizes"],
+   tags:["T-Shirt","Cotton","Custom Print","Unisex"],photo:null,
+   svg:`<svg viewBox="0 0 240 280" fill="none"><path d="M82 50l-42 26-14 52 26 8v126h136V136l26-8-14-52-42-26" fill="#111" stroke="#333" stroke-width="2.5" stroke-linejoin="round"/><path d="M95 50c0-18 50-18 50 0" fill="none" stroke="#444" stroke-width="2.5"/><circle cx="120" cy="170" r="42" fill="rgba(201,219,63,.1)"/><text x="120" y="180" text-anchor="middle" font-size="36">🍐</text><text x="120" y="210" text-anchor="middle" font-size="8" fill="#c9db3f" letter-spacing="4">MSXALI</text><rect x="52" y="253" width="136" height="9" rx="2" fill="#222"/><rect x="26" y="122" width="26" height="8" rx="2" fill="#222"/><rect x="188" y="122" width="26" height="8" rx="2" fill="#222"/></svg>`},
+  {id:3,name:"შარვალი",en:"Trousers",cat:"ქვემო",badge:"NEW",
+   desc:"Cargo სტილი, გვერდითი სტრიპები, მრავლობითი ჯიბე.",
+   full:"Cargo სტილი, გვერდითი სტრიპები, მრავლობითი ჯიბე. ფართო ჭრა, ნაქსოვი ბოლოები. შავი, ბეჟი, კამუფლაჟი.",
+   feats:["Cargo Style","Side Stripe","4+ ჯიბე","Wide Fit","Custom Color"],
+   tags:["Cargo","Wide Fit","Streetwear","Custom"],photo:null,
+   svg:`<svg viewBox="0 0 220 340" fill="none"><rect x="22" y="14" width="176" height="22" rx="4" fill="#2a2a1a" stroke="#111" stroke-width="2"/><rect x="42" y="11" width="10" height="14" rx="2" fill="#111"/><rect x="105" y="11" width="10" height="14" rx="2" fill="#111"/><rect x="168" y="11" width="10" height="14" rx="2" fill="#111"/><path d="M22 36v229c0 40 30 50 46 40l20-105h20l20 105c16 10 46 0 46-40V36z" fill="#3a3a28" stroke="#111" stroke-width="2" stroke-linejoin="round"/><line x1="110" y1="36" x2="110" y2="200" stroke="#111" stroke-width="1.5"/><line x1="22" y1="36" x2="22" y2="305" stroke="#c9db3f" stroke-width="4"/><line x1="198" y1="36" x2="198" y2="305" stroke="#c9db3f" stroke-width="4"/><rect x="25" y="110" width="55" height="58" rx="3" fill="#2a2a1a" stroke="#111" stroke-width="1.5"/><rect x="25" y="108" width="55" height="18" rx="3" fill="#333322" stroke="#111" stroke-width="1.5"/><circle cx="52" cy="117" r="3.5" fill="#111"/><rect x="20" y="298" width="72" height="10" rx="3" fill="#2a2a1a" stroke="#111" stroke-width="1.5"/><rect x="128" y="298" width="72" height="10" rx="3" fill="#2a2a1a" stroke="#111" stroke-width="1.5"/></svg>`},
+  {id:4,name:"ჩანთა",en:"Bag",cat:"აქსესუარი",badge:null,
+   desc:"Medium ზომა, branded panel, გარე ZIP-ჯიბე.",
+   full:"Medium ზომის ყოველდღიური ჩანთა. Branded patch, გარე ZIP-ჯიბე, გამაგრებული სახელურები. ფერი, ლოგო, ქსოვილი — ყველაფერი შეირჩევა.",
+   feats:["Medium Size","ZIP ჯიბე","Branded Panel","Reinforced Handles","Custom Fabric"],
+   tags:["Bag","Tote","Custom","Branded"],photo:null,
+   svg:`<svg viewBox="0 0 240 280" fill="none"><path d="M85 52c0-32 70-32 70 0" fill="none" stroke="#c9db3f" stroke-width="10" stroke-linecap="round"/><path d="M85 52c0-32 70-32 70 0" fill="none" stroke="#adc230" stroke-width="5" stroke-linecap="round"/><rect x="24" y="50" width="192" height="188" rx="14" fill="#c9db3f" stroke="#adc230" stroke-width="2"/><line x1="34" y1="74" x2="206" y2="74" stroke="#111" stroke-width="2" stroke-dasharray="5 4"/><rect x="113" y="67" width="14" height="20" rx="3" fill="#111"/><circle cx="120" cy="74" r="4" fill="#222"/><rect x="70" y="88" width="100" height="56" rx="8" fill="#111"/><text x="120" y="108" text-anchor="middle" font-size="8" fill="#c9db3f" letter-spacing="2">პროექტი</text><text x="120" y="130" text-anchor="middle" font-size="20">🍐</text><rect x="40" y="160" width="160" height="64" rx="9" fill="#adc230" stroke="#9ab820" stroke-width="1.5"/><line x1="50" y1="176" x2="190" y2="176" stroke="#111" stroke-width="1.5" stroke-dasharray="4 3"/><circle cx="40" cy="232" r="7" fill="#111"/><circle cx="200" cy="232" r="7" fill="#111"/></svg>`},
+  {id:5,name:"ჰალსტუხი",en:"Necktie",cat:"აქსესუარი",badge:null,
+   desc:"Premium ქსოვილი, diagonal stripes, ნაქარგი ემბლემი.",
+   full:"კლასიკური სიგანე, premium ქსოვილი. Diagonal stripe ან ჰორიზონტალური, ნაქარგი 🍐 ემბლემი. კლასიკური ან skinny.",
+   feats:["Premium Fabric","Custom Length","Embroidered Logo","Formal / Casual","Custom Color"],
+   tags:["Necktie","Formal","Premium","Custom"],photo:null,
+   svg:`<svg viewBox="0 0 120 320" fill="none"><path d="M32 38l28-12 28 12-4 20-24-10-24 10z" fill="#f5f2e8" stroke="#ccc" stroke-width="2"/><path d="M40 56l20-12 20 12-4 22H44z" fill="#111" stroke="#333" stroke-width="2"/><path d="M44 78L32 200l28 100 28-100L76 78z" fill="#111" stroke="#333" stroke-width="2" stroke-linejoin="round"/><line x1="33" y1="108" x2="82" y2="96" stroke="#c9db3f" stroke-width="5" opacity=".8"/><line x1="34" y1="138" x2="80" y2="126" stroke="#c9db3f" stroke-width="5" opacity=".8"/><line x1="35" y1="168" x2="78" y2="156" stroke="#c9db3f" stroke-width="5" opacity=".6"/><path d="M48 288l12 12 12-12-12 6z" fill="#c9db3f"/><text x="60" y="240" text-anchor="middle" font-size="18" opacity=".5">🍐</text></svg>`},
+  {id:6,name:"წინდები",en:"Socks",cat:"აქსესუარი",badge:"HOT",
+   desc:"Crew length, ribbed cuff, 🍐 ემბლემი. წყვილი ან სეტი.",
+   full:"Crew length, ribbed საყელო, reinforced toe & heel. 🍐 ემბლემი ან სახელი — ნაქარგი ან ბეჭდვით. წყვილი ან სეტი.",
+   feats:["Crew Length","Ribbed Cuff","Reinforced Toe & Heel","Custom Emblem","Set of 3+"],
+   tags:["Socks","Crew","Pair Set","Custom"],photo:null,
+   svg:`<svg viewBox="0 0 220 200" fill="none"><path d="M20 14v124c-2 12-8 26-4 44 3 13 40 20 52 10l12-28V14z" fill="#c9db3f" stroke="#adc230" stroke-width="2" stroke-linejoin="round"/><ellipse cx="65" cy="192" rx="22" ry="9" fill="#adc230" stroke="#9ab820" stroke-width="1.5"/><rect x="20" y="14" width="60" height="10" rx="2" fill="#111"/><rect x="20" y="24" width="60" height="6" rx="1" fill="#adc230"/><rect x="20" y="30" width="60" height="3" rx="1" fill="#111" opacity=".5"/><text x="50" y="110" text-anchor="middle" font-size="26">🍐</text><path d="M140 14v124c-2 12-8 26-4 44 3 13 40 20 52 10l12-28V14z" fill="#111" stroke="#333" stroke-width="2" stroke-linejoin="round"/><ellipse cx="185" cy="192" rx="22" ry="9" fill="#222" stroke="#333" stroke-width="1.5"/><rect x="140" y="14" width="60" height="10" rx="2" fill="#c9db3f"/><rect x="140" y="24" width="60" height="6" rx="1" fill="#adc230"/><rect x="140" y="30" width="60" height="3" rx="1" fill="#c9db3f" opacity=".5"/><text x="170" y="110" text-anchor="middle" font-size="26">🍐</text></svg>`},
+  {id:7,name:"ლონგსლივი",en:"Longsleeve",cat:"ზემო",badge:"NEW",
+   desc:"გრძელმკლავიანი მაისური, slim ან regular fit.",
+   full:"გრძელმკლავიანი მაისური — სეზონთაშორისი სტილი. Slim ან regular fit, ribbed cuffs. Custom print ან embroidery.",
+   feats:["Long Sleeve","Slim / Regular","Ribbed Cuffs","Custom Print","Cotton Blend"],
+   tags:["Longsleeve","Custom","Cotton"],photo:null,
+   svg:`<svg viewBox="0 0 260 320" fill="none"><path d="M80 55L30 90 12 175l38 7v98h160v-98l38-7L230 90l-50-35" fill="#e8d5b0" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/><path d="M93 55c0-20 74-20 74 0" fill="none" stroke="#111" stroke-width="2.5"/><rect x="12" y="168" width="38" height="9" rx="3" fill="#d4c09a" stroke="#111" stroke-width="1.5"/><rect x="210" y="168" width="38" height="9" rx="3" fill="#d4c09a" stroke="#111" stroke-width="1.5"/><rect x="50" y="270" width="160" height="10" rx="3" fill="#d4c09a" stroke="#111" stroke-width="1.5"/><text x="130" y="185" text-anchor="middle" font-size="30">🍐</text><text x="130" y="215" text-anchor="middle" font-size="8" fill="#a08060" letter-spacing="4">MSXALI</text></svg>`},
+  {id:8,name:"ქუდი",en:"Cap",cat:"აქსესუარი",badge:null,
+   desc:"Snapback ან dad cap, ნაქარგი 🍐 ლოგო.",
+   full:"Snapback ან dad cap. ნაქარგი 🍐 ლოგო ან custom ტექსტი. Adjustable strap. ხელმისაწვდომია სხვადასხვა ფერში.",
+   feats:["Snapback / Dad Cap","Embroidered Logo","Adjustable Strap","One Size","Custom Color"],
+   tags:["Cap","Hat","Embroidery","Streetwear"],photo:null,
+   svg:`<svg viewBox="0 0 260 200" fill="none"><path d="M30 120Q130 40 230 120" fill="#111" stroke="#333" stroke-width="2"/><rect x="20" y="118" width="220" height="28" rx="4" fill="#111" stroke="#333" stroke-width="2"/><path d="M20 118Q130 130 240 118" fill="none" stroke="#333" stroke-width="1.5"/><path d="M20 135L5 148Q20 155 40 148z" fill="#222" stroke="#333" stroke-width="1.5" stroke-linejoin="round"/><text x="130" y="104" text-anchor="middle" font-size="22">🍐</text><rect x="100" y="140" width="60" height="8" rx="2" fill="#333" stroke="#555" stroke-width="1"/></svg>`},
+  {id:9,name:"ქურთუკი",en:"Jacket",cat:"ზემო",badge:"NEW",
+   desc:"Bomber ან windbreaker სტილი, custom embroidery.",
+   full:"Bomber ან windbreaker სტილის ქურთუკი. Custom embroidery ან print. ნაქსოვი კიდეები, zip-up. Premium ქსოვილი.",
+   feats:["Bomber / Windbreaker","Zip-up","Custom Embroidery","Premium Fabric","All Sizes"],
+   tags:["Jacket","Bomber","Custom","Premium"],photo:null,
+   svg:`<svg viewBox="0 0 280 300" fill="none"><path d="M90 65L40 100 22 210h236L240 100l-50-35" fill="#2a3520" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/><path d="M40 100L6 175l30 9 29-66" fill="#2a3520" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/><path d="M240 100l34 75-30 9-29-66" fill="#2a3520" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/><path d="M90 65h50l0 35-40 0z" fill="#1e2a18" stroke="#111" stroke-width="2"/><path d="M190 65h-50l0 35 40 0z" fill="#1e2a18" stroke="#111" stroke-width="2"/><line x1="140" y1="65" x2="140" y2="210" stroke="#c9db3f" stroke-width="2" stroke-dasharray="4 3"/><rect x="22" y="202" width="236" height="10" rx="3" fill="#1e2a18" stroke="#111" stroke-width="1.5"/><rect x="6" y="177" width="32" height="9" rx="3" fill="#1e2a18" stroke="#111" stroke-width="1.5"/><rect x="242" y="177" width="32" height="9" rx="3" fill="#1e2a18" stroke="#111" stroke-width="1.5"/><rect x="44" y="115" width="60" height="50" rx="3" fill="#1e2a18" stroke="#111" stroke-width="1.5"/><text x="140" y="168" text-anchor="middle" font-size="26">🍐</text></svg>`}
+];
+
+/* ── CARD HTML ────────────────────────────────── */
+function card(p){
+  const img = p.photo
+    ? `<img src="${p.photo}" alt="${p.name}" loading="lazy">`
+    : `<div class="c-img-ph">${p.svg}</div>`;
+  const badge = p.badge ? `<div class="c-badge">${p.badge}</div>` : '';
+  return `<div class="card" onclick="openModal(${p.id})">
+    <div class="c-img">
+      <div class="c-num">${String(p.id).padStart(2,'0')}</div>
+      ${badge}${img}
+    </div>
+    <div class="c-body">
+      <div class="c-cat">${p.cat}</div>
+      <div class="c-name">${p.name}</div>
+      <div class="c-desc">${p.desc}</div>
+      <div class="c-foot">
+        <span class="c-tag">${p.en}</span>
+        <div class="c-arr">→</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ── STRIP ───────────────────────────────────── */
+function initStrip(){
+  const s = P.map(p=>`<span class="strip-item">${p.name}</span>`).join('');
+  document.getElementById('st').innerHTML = s+s;
+}
+
+/* ── HOME ────────────────────────────────────── */
+function renderHome(){
+  // featured 4 (HOT/badge first)
+  const feat = [...P].sort((a,b)=>b.badge?1:-1).slice(0,4);
+  document.getElementById('homeGrid').innerHTML = feat.map(card).join('');
+  // second row: next 3
+  const rest = P.filter(p=>!feat.includes(p)).slice(0,3);
+  document.getElementById('homeGrid2').innerHTML = rest.map(card).join('');
+}
+
+/* ── PRODUCTS ────────────────────────────────── */
+let curCat='all';
+function renderProducts(cat='all'){
+  curCat=cat;
+  const list = cat==='all'?P:P.filter(p=>p.cat===cat);
+  document.getElementById('prodGrid').innerHTML = list.map(card).join('');
+  document.getElementById('pcnt').textContent = list.length+' პროდუქტი';
+  document.querySelectorAll('.f-btn').forEach(b=>b.classList.toggle('act',b.dataset.cat===cat));
+}
+
+function goProducts(cat){
+  showPage('products');
+  renderProducts(cat);
+}
+
+/* ── SEARCH ──────────────────────────────────── */
+function doSearch(q){
+  if(!q.trim())return;
+  const r=P.filter(p=>
+    p.name.includes(q)||p.en.toLowerCase().includes(q.toLowerCase())||
+    p.cat.includes(q)||p.desc.includes(q)||
+    p.tags.some(t=>t.toLowerCase().includes(q.toLowerCase()))
+  );
+  showPage('search');
+  document.getElementById('sTitle').textContent = `"${q}" — შედეგები`;
+  document.getElementById('sSub').textContent = `${r.length} პროდუქტი მოიძებნა`;
+  document.getElementById('srchGrid').innerHTML = r.length
+    ? r.map(card).join('')
+    : `<div class="no-res" style="grid-column:1/-1"><div class="ico">🔍</div><p>ვერ მოიძებნა: "${q}"</p></div>`;
+}
+
+/* ── MODAL ───────────────────────────────────── */
+let _modalProductId = null;
+function openModal(id){
+  const p=P.find(x=>x.id===id); if(!p)return;
+  _modalProductId = id;
+  document.getElementById('mImg').innerHTML = p.photo
+    ? `<img src="${p.photo}" alt="${p.name}">`
+    : `<div class="m-img-ph">${p.svg}</div>`;
+  document.getElementById('mCat').textContent = p.cat+' · '+p.en;
+  document.getElementById('mName').textContent = p.name;
+  document.getElementById('mDesc').textContent = p.full;
+  document.getElementById('mFeats').innerHTML = p.feats.map(f=>`<div class="m-feat">${f}</div>`).join('');
+  document.getElementById('mTags').innerHTML = p.tags.map(t=>`<span class="m-tag">${t}</span>`).join('');
+  document.getElementById('mOv').classList.add('on');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  document.getElementById('mOv').classList.remove('on');
+  document.body.style.overflow='';
+}
+
+/* ── PAGE NAVIGATION ─────────────────────────── */
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('act'));
+  document.getElementById('page-'+name).classList.add('act');
+  document.querySelectorAll('.nlink[data-page]').forEach(a=>a.classList.toggle('act',a.dataset.page===name));
+  document.getElementById('mob').classList.remove('on');
+  document.getElementById('hbg').classList.remove('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ── EVENTS ──────────────────────────────────── */
+document.addEventListener('click',e=>{
+  const nl=e.target.closest('.nlink[data-page]');
+  if(nl){e.preventDefault();const pg=nl.dataset.page;showPage(pg);if(pg==='products')renderProducts(curCat);return;}
+  const fb=e.target.closest('.f-btn');
+  if(fb){renderProducts(fb.dataset.cat);return;}
+});
+
+['si','msi'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(!el)return;
+  el.addEventListener('keydown',e=>{if(e.key==='Enter')doSearch(el.value)});
+});
+
+document.getElementById('mX').addEventListener('click',closeModal);
+document.getElementById('mOv').addEventListener('click',e=>{if(e.target===document.getElementById('mOv'))closeModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+
+document.getElementById('hbg').addEventListener('click',()=>{
+  document.getElementById('hbg').classList.toggle('on');
+  document.getElementById('mob').classList.toggle('on');
+});
+
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>10);
+});
+
+/* ── SCROLL REVEAL ───────────────────────────── */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}
+  });
+},{threshold:.1});
+document.querySelectorAll('.card,.cat-card,.val').forEach(el=>{
+  el.style.opacity='0';el.style.transform='translateY(30px)';
+  el.style.transition='opacity .5s ease,transform .5s ease';
+  obs.observe(el);
+});
+
+/* ── INIT ────────────────────────────────────── */
+initStrip();
+renderHome();
+renderProducts();
+</script>
+
+<!-- DESIGNER PAGE -->
+<div class="page" id="page-designer">
+<div class="dsgn-wrap">
+
+  <div class="dsgn-left">
+    <div class="dsgn-header">
+      <div class="dsgn-eyebrow">Sons of Pear · Custom Studio</div>
+      <h1 class="dsgn-title">შექმენი <em>შენი</em><br>ტანსაცმელი</h1>
+    </div>
+
+    <div class="dsgn-step">
+      <div class="step-label"><span class="step-num">1</span>პროდუქტის ტიპი</div>
+      <div class="type-grid">
+        <button class="type-btn active" data-type="hoodie">🧥<span>ჰუდი</span></button>
+        <button class="type-btn" data-type="tshirt">👕<span>მაისური</span></button>
+        <button class="type-btn" data-type="pants">👖<span>შარვალი</span></button>
+        <button class="type-btn" data-type="jacket">🥼<span>ქურთუკი</span></button>
+        <button class="type-btn" data-type="longsleeve">👔<span>ლონგსლივი</span></button>
+        <button class="type-btn" data-type="bag">👜<span>ჩანთა</span></button>
+      </div>
+    </div>
+
+    <div class="dsgn-step">
+      <div class="step-label"><span class="step-num">2</span>ძირითადი ფერი</div>
+      <div class="color-row" id="colorRow">
+        <button class="clr-btn active" data-color="#111109" style="background:#111109" title="შავი"></button>
+        <button class="clr-btn" data-color="#ffffff" style="background:#fff;border:2px solid #ddd" title="თეთრი"></button>
+        <button class="clr-btn" data-color="#c9db3f" style="background:#c9db3f" title="მსხლის მწვანე"></button>
+        <button class="clr-btn" data-color="#2d5a27" style="background:#2d5a27" title="მუქი მწვანე"></button>
+        <button class="clr-btn" data-color="#1e3a5f" style="background:#1e3a5f" title="მუქი ლურჯი"></button>
+        <button class="clr-btn" data-color="#8b0000" style="background:#8b0000" title="წითელი"></button>
+        <button class="clr-btn" data-color="#4a3728" style="background:#4a3728" title="ყავისფერი"></button>
+        <button class="clr-btn" data-color="#c8a96e" style="background:#c8a96e" title="ბეჟი"></button>
+        <button class="clr-btn" data-color="#6b4c9a" style="background:#6b4c9a" title="იასამნისფერი"></button>
+        <button class="clr-btn" data-color="#d4845a" style="background:#d4845a" title="პერსიკი"></button>
+        <label class="clr-btn clr-custom" title="სხვა ფერი" style="background:conic-gradient(red,yellow,lime,cyan,blue,magenta,red)">
+          <input type="color" id="customColor" value="#ff0000">
+        </label>
+      </div>
+      <div class="color-name" id="colorName">შავი</div>
+    </div>
+
+    <div class="dsgn-step">
+      <div class="step-label"><span class="step-num">3</span>აქცენტის ფერი</div>
+      <div class="color-row" id="accentRow">
+        <button class="clr-btn active" data-color="#c9db3f" style="background:#c9db3f" title="მსხლის მწვანე"></button>
+        <button class="clr-btn" data-color="#ffffff" style="background:#fff;border:2px solid #ddd" title="თეთრი"></button>
+        <button class="clr-btn" data-color="#111109" style="background:#111109" title="შავი"></button>
+        <button class="clr-btn" data-color="#c8a96e" style="background:#c8a96e" title="ოქროსფერი"></button>
+        <button class="clr-btn" data-color="#e8e8e8" style="background:#e8e8e8;border:2px solid #ddd" title="რუხი"></button>
+        <button class="clr-btn" data-color="#ff6b6b" style="background:#ff6b6b" title="წითელი"></button>
+        <label class="clr-btn clr-custom" title="სხვა" style="background:conic-gradient(red,yellow,lime,cyan,blue,magenta,red)">
+          <input type="color" id="customAccent" value="#c9db3f">
+        </label>
+      </div>
+    </div>
+
+    <div class="dsgn-step">
+      <div class="step-label"><span class="step-num">4</span>ზომა</div>
+      <div class="size-row">
+        <button class="size-btn" data-size="XS">XS</button>
+        <button class="size-btn" data-size="S">S</button>
+        <button class="size-btn active" data-size="M">M</button>
+        <button class="size-btn" data-size="L">L</button>
+        <button class="size-btn" data-size="XL">XL</button>
+        <button class="size-btn" data-size="XXL">XXL</button>
+      </div>
+    </div>
+
+    <div class="dsgn-step">
+      <div class="step-label"><span class="step-num">5</span>ლოგო / ნახაზი <span style="font-size:.75rem;color:#aaa;font-weight:400">(არასავალდებულო)</span></div>
+      <label class="upload-area" for="logoFile">
+        <div class="upload-inner" id="uploadInner">
+          <div style="font-size:2rem">📁</div>
+          <div class="upload-text">ატვირთე ლოგო ან ნახაზი</div>
+          <div class="upload-sub">PNG · JPG · SVG · მაქს 5MB</div>
+        </div>
+        <input type="file" id="logoFile" accept="image/*" style="display:none">
+      </label>
+    </div>
+
+    <div class="dsgn-step">
+      <div class="step-label"><span class="step-num">6</span>დამატებითი მოთხოვნები</div>
+      <textarea class="dsgn-notes" id="dsgnNotes" placeholder="მაგ: ლოგო მარჯვენა მხარეს, ზომა 10x10სმ, ტექსტი 'My Brand'..."></textarea>
+    </div>
+
+    <button class="order-cta-btn" id="openOrderBtn">🛒 შეკვეთის გაფორმება →</button>
+  </div>
+
+  <div class="dsgn-right">
+    <div class="preview-sticky">
+      <div class="preview-label">⚡ Live Preview</div>
+      <div class="preview-box">
+        <div id="previewCanvas" style="width:70%;height:70%;display:flex;align-items:center;justify-content:center;position:relative"></div>
+        <img id="previewLogo" src="" style="position:absolute;width:22%;pointer-events:none;display:none" alt="logo">
+      </div>
+      <div style="text-align:center;font-size:.83rem;color:var(--gray);margin-top:1rem;display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap">
+        <span id="pvType" style="font-weight:600">ჰუდი</span>
+        <span>·</span>
+        <span id="pvColorDot" style="width:14px;height:14px;border-radius:50%;background:#111;display:inline-block;border:1px solid #ddd;vertical-align:middle"></span>
+        <span id="pvColorName">შავი</span>
+        <span>·</span>
+        <span id="pvSize" style="font-weight:600">M</span>
+      </div>
+      <div style="margin-top:.7rem;display:flex;gap:.5rem;justify-content:center">
+        <span id="pvAccBadge" style="font-size:.7rem;font-weight:700;padding:.3rem .9rem;border-radius:100px;background:#c9db3f;color:#111">აქცენტი</span>
+        <span id="pvLogoBadge" style="font-size:.7rem;font-weight:700;padding:.3rem .9rem;border-radius:100px;background:#eee;color:#666;display:none">🖼️ ლოგო</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ORDER MODAL -->
+<div id="ordOv" style="display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:1rem;overflow-y:auto">
+  <div style="background:#fafaf5;border-radius:24px;width:100%;max-width:600px;padding:2.5rem;position:relative;max-height:90vh;overflow-y:auto;animation:mIn .3s ease">
+    <button id="ordClose" style="position:absolute;top:1.2rem;right:1.2rem;width:36px;height:36px;border-radius:50%;background:#f2edd8;border:none;font-size:1.1rem;cursor:pointer">✕</button>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:700;margin-bottom:.2rem">🛒 შეკვეთა</div>
+    <div style="font-size:.85rem;color:#6e6e60;margin-bottom:1.5rem">შეავსე ფორმა — გიპასუხებთ სწრაფად 🍐</div>
+
+    <div id="ordSummary" style="background:#f2edd8;border-radius:12px;padding:1rem 1.2rem;margin-bottom:1rem;display:flex;flex-wrap:wrap;gap:.5rem;font-size:.82rem"></div>
+    <div id="ordSizeRow" style="display:none;margin-bottom:1.2rem">
+      <div style="font-size:.8rem;font-weight:600;color:#666;margin-bottom:.5rem">📏 ზომა</div>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+        <button class="size-btn" data-size="XS" onclick="selectOrderSize(this)">XS</button>
+        <button class="size-btn" data-size="S" onclick="selectOrderSize(this)">S</button>
+        <button class="size-btn active" data-size="M" onclick="selectOrderSize(this)">M</button>
+        <button class="size-btn" data-size="L" onclick="selectOrderSize(this)">L</button>
+        <button class="size-btn" data-size="XL" onclick="selectOrderSize(this)">XL</button>
+        <button class="size-btn" data-size="XXL" onclick="selectOrderSize(this)">XXL</button>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:1rem;margin-bottom:1.2rem">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+        <div class="fg"><label>სახელი და გვარი *</label><input id="fName" type="text" placeholder="გიორგი მამულაძე"></div>
+        <div class="fg"><label>ტელეფონი *</label><input id="fPhone" type="tel" placeholder="+995 5XX XXX XXX"></div>
+      </div>
+      <div class="fg"><label>ელ-ფოსტა *</label><input id="fEmail" type="email" placeholder="name@gmail.com"></div>
+      <div class="fg"><label>მისამართი *</label><input id="fAddress" type="text" placeholder="თბილისი, ვაკე, ჭავჭავაძის 1"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+        <div class="fg"><label>რაოდენობა</label>
+          <div style="display:flex;align-items:center;gap:.8rem;padding:.6rem 0">
+            <button onclick="chQty(-1)" style="width:34px;height:34px;border-radius:50%;background:#f2edd8;border:1.5px solid #e4dfc8;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center">−</button>
+            <span id="qtyVal" style="font-size:1.1rem;font-weight:700;min-width:20px;text-align:center">1</span>
+            <button onclick="chQty(1)" style="width:34px;height:34px;border-radius:50%;background:#f2edd8;border:1.5px solid #e4dfc8;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center">+</button>
+          </div>
+        </div>
+        <div class="fg"><label>გადახდა</label>
+          <select id="fPayment">
+            <option>გადარიცხვა</option>
+            <option>ნაღდი მიტანაზე</option>
+            <option>BOG Pay</option>
+            <option>TBC Pay</option>
+          </select>
+        </div>
+      </div>
+      <div class="fg"><label>კომენტარი</label><textarea id="fComment" placeholder="სპეციალური მოთხოვნა..." style="min-height:70px"></textarea></div>
+    </div>
+
+    <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:10px;padding:.85rem 1rem;font-size:.78rem;color:#7a6000;margin-bottom:1.2rem;line-height:1.6" id="ejNote">
+      ⚙️ Gmail-ზე გასაგზავნად: შეავსე <strong>SELLER_EMAIL</strong> და <strong>EmailJS</strong> კოდები ფაილის დასაწყისში.
+      <a href="https://emailjs.com" target="_blank" style="color:#9aab1a;font-weight:600">emailjs.com →</a>
+    </div>
+
+    <button id="submitBtn" onclick="submitOrder()" style="width:100%;padding:1.1rem;border-radius:100px;background:#111109;color:#fff;font-size:1rem;font-weight:600;border:none;cursor:pointer;transition:all .2s">
+      <span id="submitTxt">📨 შეკვეთის გაგზავნა</span>
+    </button>
+
+    <div id="ordSuccess" style="display:none;text-align:center;padding:2rem 0">
+      <div style="font-size:4rem;margin-bottom:1rem">✅</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;margin-bottom:.5rem">შეკვეთა მიღებულია!</div>
+      <div style="color:#6e6e60;font-size:.9rem">გიპასუხებთ 24 საათის განმავლობაში.</div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+/* ══════════════════════════════
+   EMAILJS CONFIG
+   1. გადადი emailjs.com
+   2. შექმენი Gmail სერვისი
+   3. შეავსე ქვემოთ მოცემული ველები
+══════════════════════════════ */
+const EMAILJS_SVC = "service_u4ezdf9";
+const EMAILJS_TPL = "template_vjlpftl";
+const EMAILJS_KEY = "8Qrq_nsDjjbb2BLY3";
+const SELLER_EMAIL = "sonsofpear@gmail.com";  // ← შენი Gmail
+
+if(typeof emailjs!=="undefined" && EMAILJS_KEY!=="YOUR_PUBLIC_KEY"){
+  emailjs.init(EMAILJS_KEY);
+}
+
+/* ══ STATE ══ */
+const DS = {
+  type:"hoodie", typeLabel:"ჰუდი",
+  color:"#111109", colorName:"შავი",
+  accent:"#c9db3f",
+  size:"M", qty:1,
+  logo:null, notes:""
+};
+
+/* ══ HELPERS ══ */
+function shade(hex,p){
+  hex=hex.replace("#","");
+  if(hex.length===3)hex=hex.split("").map(x=>x+x).join("");
+  let r=parseInt(hex.substr(0,2),16)+p,
+      g=parseInt(hex.substr(2,2),16)+p,
+      b=parseInt(hex.substr(4,2),16)+p;
+  return "#"+[r,g,b].map(v=>Math.min(255,Math.max(0,v)).toString(16).padStart(2,"0")).join("");
+}
+function light(hex){
+  hex=hex.replace("#","");
+  if(hex.length===3)hex=hex.split("").map(x=>x+x).join("");
+  const r=parseInt(hex.substr(0,2),16),g=parseInt(hex.substr(2,2),16),b=parseInt(hex.substr(4,2),16);
+  return(r*299+g*587+b*114)/1000>145;
+}
+
+/* ══ SVG GARMENTS ══ */
+function svgHoodie(c,a){return `<svg viewBox="0 0 260 290" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M82 85L40 114 22 220h216l-18-106-40-29" fill="${c}"/>
+  <path d="M40 114L6 182l28 10 28-52" fill="${shade(c,-15)}"/>
+  <path d="M220 114l34 68-28 10-28-52" fill="${shade(c,-15)}"/>
+  <path d="M88 85c0-50 84-50 84 0" fill="${shade(c,-20)}" stroke="${shade(c,-40)}" stroke-width="1.5"/>
+  <rect x="94" y="162" width="72" height="40" rx="5" fill="${shade(c,-20)}"/>
+  <line x1="130" y1="162" x2="130" y2="202" stroke="${shade(c,-40)}" stroke-width="1"/>
+  <line x1="118" y1="83" x2="112" y2="128" stroke="${shade(c,-40)}" stroke-width="2"/>
+  <line x1="142" y1="83" x2="148" y2="128" stroke="${shade(c,-40)}" stroke-width="2"/>
+  <circle cx="112" cy="130" r="4" fill="${a}"/>
+  <circle cx="148" cy="130" r="4" fill="${a}"/>
+  <rect x="22" y="212" width="216" height="10" rx="3" fill="${a}"/>
+  <rect x="6" y="183" width="30" height="9" rx="3" fill="${a}"/>
+  <rect x="224" y="183" width="30" height="9" rx="3" fill="${a}"/>
+</svg>`;}
+
+function svgTshirt(c,a){return `<svg viewBox="0 0 240 270" fill="none">
+  <path d="M82 48l-42 26-14 52 26 8v124h136V134l26-8-14-52-42-26" fill="${c}"/>
+  <path d="M96 48c0-17 48-17 48 0" fill="${shade(c,-20)}" stroke="${shade(c,-40)}" stroke-width="1.5"/>
+  <circle cx="120" cy="162" r="36" fill="${a}" opacity="0.2"/>
+  <text x="120" y="172" text-anchor="middle" font-size="32">🍐</text>
+  <rect x="54" y="246" width="132" height="9" rx="2" fill="${a}"/>
+  <rect x="26" y="120" width="28" height="8" rx="2" fill="${a}"/>
+  <rect x="186" y="120" width="28" height="8" rx="2" fill="${a}"/>
+</svg>`;}
+
+function svgPants(c,a){return `<svg viewBox="0 0 220 330" fill="none">
+  <rect x="22" y="12" width="176" height="24" rx="4" fill="${shade(c,-25)}"/>
+  <path d="M22 36v224c0 38 28 48 44 40l22-102h24l22 102c16 8 44-2 44-40V36z" fill="${c}"/>
+  <line x1="110" y1="36" x2="110" y2="195" stroke="${shade(c,-40)}" stroke-width="1.5"/>
+  <line x1="22" y1="36" x2="22" y2="300" stroke="${a}" stroke-width="5"/>
+  <line x1="198" y1="36" x2="198" y2="300" stroke="${a}" stroke-width="5"/>
+  <rect x="25" y="108" width="52" height="55" rx="3" fill="${shade(c,-20)}"/>
+  <circle cx="51" cy="117" r="4" fill="${a}"/>
+  <rect x="42" y="14" width="10" height="14" rx="2" fill="${a}"/>
+  <rect x="105" y="14" width="10" height="14" rx="2" fill="${a}"/>
+  <rect x="168" y="14" width="10" height="14" rx="2" fill="${a}"/>
+  <rect x="20" y="290" width="70" height="11" rx="3" fill="${shade(c,-20)}"/>
+  <rect x="130" y="290" width="70" height="11" rx="3" fill="${shade(c,-20)}"/>
+</svg>`;}
+
+function svgJacket(c,a){return `<svg viewBox="0 0 280 295" fill="none">
+  <path d="M90 63L40 98 22 206h236L240 98l-50-35" fill="${c}"/>
+  <path d="M40 98L6 172l30 10 30-64" fill="${shade(c,-15)}"/>
+  <path d="M240 98l34 74-30 10-30-64" fill="${shade(c,-15)}"/>
+  <path d="M90 63h50v36l-40-2z" fill="${shade(c,-20)}"/>
+  <path d="M190 63h-50v36l40-2z" fill="${shade(c,-20)}"/>
+  <line x1="140" y1="63" x2="140" y2="206" stroke="${a}" stroke-width="2" stroke-dasharray="6 4"/>
+  <rect x="22" y="198" width="236" height="11" rx="3" fill="${shade(c,-20)}"/>
+  <rect x="6" y="174" width="32" height="10" rx="3" fill="${a}"/>
+  <rect x="242" y="174" width="32" height="10" rx="3" fill="${a}"/>
+  <rect x="44" y="112" width="58" height="52" rx="3" fill="${shade(c,-20)}"/>
+  <text x="140" y="165" text-anchor="middle" font-size="24">🍐</text>
+</svg>`;}
+
+function svgLongsleeve(c,a){return `<svg viewBox="0 0 260 310" fill="none">
+  <path d="M80 53L28 88 10 172l38 8v96h164V180l38-8-22-84-50-35" fill="${c}"/>
+  <path d="M93 53c0-19 74-19 74 0" fill="${shade(c,-20)}" stroke="${shade(c,-40)}" stroke-width="1.5"/>
+  <rect x="10" y="165" width="40" height="10" rx="3" fill="${a}"/>
+  <rect x="210" y="165" width="40" height="10" rx="3" fill="${a}"/>
+  <rect x="48" y="265" width="164" height="10" rx="3" fill="${a}"/>
+  <circle cx="130" cy="178" r="28" fill="${a}" opacity="0.18"/>
+  <text x="130" y="186" text-anchor="middle" font-size="26">🍐</text>
+</svg>`;}
+
+function svgBag(c,a){return `<svg viewBox="0 0 240 275" fill="none">
+  <path d="M85 50c0-30 70-30 70 0" stroke="${a}" stroke-width="10" stroke-linecap="round" fill="none"/>
+  <rect x="22" y="48" width="196" height="192" rx="14" fill="${c}"/>
+  <line x1="32" y1="72" x2="208" y2="72" stroke="${shade(c,-40)}" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <rect x="112" y="65" width="16" height="22" rx="3" fill="${a}"/>
+  <rect x="68" y="86" width="104" height="58" rx="8" fill="${shade(c,-30)}"/>
+  <text x="120" y="107" text-anchor="middle" font-size="9" fill="${a}" letter-spacing="2">პროექტი</text>
+  <text x="120" y="130" text-anchor="middle" font-size="20">🍐</text>
+  <rect x="38" y="158" width="164" height="66" rx="9" fill="${shade(c,-18)}"/>
+  <circle cx="38" cy="228" r="8" fill="${a}"/>
+  <circle cx="202" cy="228" r="8" fill="${a}"/>
+</svg>`;}
+
+const SVGMAP = {hoodie:svgHoodie, tshirt:svgTshirt, pants:svgPants, jacket:svgJacket, longsleeve:svgLongsleeve, bag:svgBag};
+
+/* ══ RENDER PREVIEW ══ */
+function renderPreview(){
+  const canvas = document.getElementById("previewCanvas");
+  if(!canvas) return;
+  const fn = SVGMAP[DS.type];
+  if(fn) canvas.innerHTML = fn(DS.color, DS.accent);
+
+  // logo overlay
+  const li = document.getElementById("previewLogo");
+  if(li){ li.src = DS.logo||""; li.style.display = DS.logo?"block":"none"; }
+
+  // info bar
+  const el = (id)=>document.getElementById(id);
+  if(el("pvType")) el("pvType").textContent = DS.typeLabel;
+  if(el("pvColorDot")) el("pvColorDot").style.background = DS.color;
+  if(el("pvColorName")) el("pvColorName").textContent = DS.colorName;
+  if(el("pvSize")) el("pvSize").textContent = DS.size;
+  if(el("pvAccBadge")){
+    el("pvAccBadge").style.background = DS.accent;
+    el("pvAccBadge").style.color = light(DS.accent)?"#111":"#fff";
+  }
+  if(el("pvLogoBadge")) el("pvLogoBadge").style.display = DS.logo?"inline":"none";
+}
+
+/* ══ WAIT FOR DOM ══ */
+document.addEventListener("DOMContentLoaded", function(){
+
+  /* product type buttons */
+  document.querySelectorAll(".type-btn").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      document.querySelectorAll(".type-btn").forEach(b=>b.classList.remove("active"));
+      btn.classList.add("active");
+      DS.type = btn.dataset.type;
+      DS.typeLabel = btn.querySelector("span").textContent;
+      renderPreview();
+    });
+  });
+
+  /* color buttons */
+  function setupClr(rowId, isAccent){
+    document.querySelectorAll("#"+rowId+" .clr-btn[data-color]").forEach(btn=>{
+      btn.addEventListener("click",()=>{
+        document.querySelectorAll("#"+rowId+" .clr-btn").forEach(b=>b.classList.remove("active"));
+        btn.classList.add("active");
+        const c = btn.dataset.color;
+        if(!isAccent){ DS.color=c; DS.colorName=btn.title||"Custom"; const el=document.getElementById("colorName"); if(el) el.textContent=DS.colorName; }
+        else { DS.accent=c; }
+        renderPreview();
+      });
+    });
+    const picker = document.getElementById(isAccent?"customAccent":"customColor");
+    if(picker){
+      picker.addEventListener("input",e=>{
+        const c=e.target.value;
+        document.querySelectorAll("#"+rowId+" .clr-btn").forEach(b=>b.classList.remove("active"));
+        picker.closest(".clr-btn").classList.add("active");
+        picker.closest(".clr-btn").style.background=c;
+        if(!isAccent){ DS.color=c; DS.colorName="Custom #"+c.slice(1); const el=document.getElementById("colorName"); if(el) el.textContent=DS.colorName; }
+        else { DS.accent=c; }
+        renderPreview();
+      });
+    }
+  }
+  setupClr("colorRow",false);
+  setupClr("accentRow",true);
+
+  /* size buttons */
+  document.querySelectorAll(".size-btn").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      document.querySelectorAll(".size-btn").forEach(b=>b.classList.remove("active"));
+      btn.classList.add("active");
+      DS.size = btn.dataset.size;
+      renderPreview();
+    });
+  });
+
+  /* logo upload */
+  const logoInput = document.getElementById("logoFile");
+  if(logoInput){
+    logoInput.addEventListener("change",e=>{
+      const file = e.target.files[0];
+      if(!file) return;
+      if(file.size>5*1024*1024){ alert("ფაილი ძალიან დიდია! მაქს 5MB"); return; }
+      const reader = new FileReader();
+      reader.onload = ev=>{
+        DS.logo = ev.target.result;
+        const inner = document.getElementById("uploadInner");
+        if(inner) inner.innerHTML = `<img src="${ev.target.result}" style="max-height:100px;object-fit:contain;padding:.5rem"><div style="font-size:.78rem;color:#5a7a00;margin-top:.3rem">✅ ${file.name}</div>`;
+        renderPreview();
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  /* open order modal */
+  const openBtn = document.getElementById("openOrderBtn");
+  if(openBtn){
+    openBtn.addEventListener("click",()=>{
+      DS.notes = (document.getElementById("dsgnNotes")||{}).value||"";
+      // fill summary
+      const sum = document.getElementById("ordSummary");
+      if(sum) sum.innerHTML = [
+        `<span style="background:#fff;border:1px solid #e4dfc8;border-radius:8px;padding:.35rem .8rem">👕 ${DS.typeLabel}</span>`,
+        `<span style="background:#fff;border:1px solid #e4dfc8;border-radius:8px;padding:.35rem .8rem;display:inline-flex;align-items:center;gap:.4rem"><span style="width:12px;height:12px;border-radius:50%;background:${DS.color};border:1px solid #ddd;display:inline-block"></span>${DS.colorName}</span>`,
+        `<span style="background:${DS.accent};color:${light(DS.accent)?"#111":"#fff"};border-radius:8px;padding:.35rem .8rem">✨ აქცენტი</span>`,
+        `<span style="background:#fff;border:1px solid #e4dfc8;border-radius:8px;padding:.35rem .8rem">📏 ${DS.size}</span>`,
+        DS.logo?`<span style="background:#fff;border:1px solid #e4dfc8;border-radius:8px;padding:.35rem .8rem">🖼️ ლოგო ✅</span>`:"",
+        DS.notes?`<span style="background:#fff;border:1px solid #e4dfc8;border-radius:8px;padding:.35rem .8rem;max-width:100%">💬 ${DS.notes.slice(0,55)}${DS.notes.length>55?"...":""}</span>`:""
+      ].filter(Boolean).join("");
+
+      const ov = document.getElementById("ordOv");
+      if(ov){ ov.style.display="flex"; document.body.style.overflow="hidden"; }
+    });
+  }
+
+  /* close order modal */
+  const closeBtn = document.getElementById("ordClose");
+  if(closeBtn) closeBtn.addEventListener("click",closeOrd);
+  const ordOv = document.getElementById("ordOv");
+  if(ordOv) ordOv.addEventListener("click",e=>{ if(e.target===ordOv) closeOrd(); });
+
+  /* initial render */
+  renderPreview();
+});
+
+function closeOrd(){
+  const ov=document.getElementById("ordOv");
+  if(ov){ ov.style.display="none"; document.body.style.overflow=""; }
+}
+
+/* qty */
+function chQty(d){
+  DS.qty = Math.max(1,Math.min(99,DS.qty+d));
+  const el=document.getElementById("qtyVal"); if(el) el.textContent=DS.qty;
+}
+
+/* submit */
+function openOrderFromProduct(){
+  const p = P.find(x=>x.id===_modalProductId);
+  if(!p) return;
+  // set DS for product order
+  DS.typeLabel = p.name;
+  DS.type = "tshirt";
+  DS.productId = p.id;
+  DS.fromProduct = true;
+  // close product modal
+  document.getElementById("mOv").classList.remove("on");
+  document.body.style.overflow="";
+  // fill summary
+  const sum = document.getElementById("ordSummary");
+  if(sum) sum.innerHTML = [
+    `<span style="background:#fff;border:1px solid #e4dfc8;border-radius:8px;padding:.35rem .8rem;font-weight:600">👕 ${p.name}</span>`,
+    `<span style="background:#fff;border:1px solid #e4dfc8;border-radius:8px;padding:.35rem .8rem">${p.en}</span>`,
+    `<span style="background:#eef5cc;color:#4a6800;border-radius:8px;padding:.35rem .8rem">${p.cat}</span>`,
+    `<span style="background:#fff;border:1px solid #e4dfc8;border-radius:8px;padding:.35rem .8rem">📏 ზომა შეიყვანე</span>`,
+  ].join("");
+  // add size selector to order modal if from product
+  const sizeRow = document.getElementById("ordSizeRow");
+  if(sizeRow) sizeRow.style.display = "block";
+  const ov = document.getElementById("ordOv");
+  if(ov){ ov.style.display="flex"; document.body.style.overflow="hidden"; }
+}
+
+async function submitOrder(){
+  const v=id=>document.getElementById(id)?.value?.trim()||"";
+  const name=v("fName"), phone=v("fPhone"), email=v("fEmail"), address=v("fAddress");
+  if(!name||!phone||!email||!address){ alert("გთხოვ შეავსო ყველა * ველი"); return; }
+
+  const btn=document.getElementById("submitBtn");
+  const txt=document.getElementById("submitTxt");
+  btn.disabled=true; txt.textContent="⏳ იგზავნება...";
+
+  const orderSize = DS.fromProduct
+    ? (document.querySelector("#ordSizeRow .size-btn.active")?.dataset.size || "M")
+    : DS.size;
+
+  const data={
+    to_email: SELLER_EMAIL,
+    customer_name: name,
+    customer_phone: phone,
+    customer_email: email,
+    customer_address: address,
+    product_type: DS.typeLabel,
+    base_color: DS.fromProduct ? "Custom" : DS.colorName+" ("+DS.color+")",
+    accent_color: DS.fromProduct ? "—" : DS.accent,
+    size: orderSize,
+    quantity: DS.qty,
+    has_logo: DS.logo?"დიახ ✅":"არა",
+    notes: DS.notes || v("fComment") || "—",
+    payment: document.getElementById("fPayment")?.value||"—",
+    order_date: new Date().toLocaleString("ka-GE"),
+    reply_to: email,
+  };
+
+  const ok = EMAILJS_SVC!=="YOUR_SERVICE_ID" && typeof emailjs!=="undefined";
+  if(ok){
+    try{ await emailjs.send(EMAILJS_SVC,EMAILJS_TPL,data); }
+    catch(e){ sendMailto(data); }
+  } else { sendMailto(data); }
+
+  // save to profile orders
+  _saveOrder({
+    product: DS.typeLabel,
+    color: DS.fromProduct ? "#c9db3f" : DS.color,
+    size: orderSize,
+    qty: DS.qty,
+    payment: data.payment,
+    date: new Date().toLocaleDateString("ka-GE"),
+  });
+
+  // reset
+  DS.fromProduct = false;
+  const sizeRow = document.getElementById("ordSizeRow");
+  if(sizeRow) sizeRow.style.display = "none";
+
+  document.getElementById("submitBtn").style.display="none";
+  document.getElementById("ordSuccess").style.display="block";
+  document.getElementById("ejNote").style.display="none";
+  setTimeout(()=>{
+    closeOrd();
+    document.getElementById("submitBtn").style.display="block";
+    document.getElementById("submitBtn").disabled=false;
+    txt.textContent="📨 შეკვეთის გაგზავნა";
+    document.getElementById("ordSuccess").style.display="none";
+    ["fName","fPhone","fEmail","fAddress","fComment"].forEach(id=>{const e=document.getElementById(id);if(e)e.value="";});
+  },3000);
+}
+
+function sendMailto(d){
+  const b=encodeURIComponent(`🍐 SONS OF PEAR — ახალი შეკვეთა
+
+👤 ${d.customer_name}
+📱 ${d.customer_phone}
+📧 ${d.customer_email}
+🏠 ${d.customer_address}
+
+👕 ${d.product_type}
+🎨 ფერი: ${d.base_color}
+✨ აქცენტი: ${d.accent_color}
+📏 ზომა: ${d.size}
+🔢 რაოდენობა: ${d.quantity}
+🖼️ ლოგო: ${d.has_logo}
+💰 გადახდა: ${d.payment}
+💬 შენიშვნა: ${d.notes}
+
+📅 ${d.order_date}`);
+  window.open("mailto:"+SELLER_EMAIL+"?subject="+encodeURIComponent("🍐 შეკვეთა — "+d.product_type+" | "+d.customer_name)+"&body="+b);
+}
+</script>
+
+
+<!-- ══ AUTH MODAL ══ -->
+<div class="auth-ov" id="authOv">
+  <div class="auth-box">
+    <button class="auth-x" onclick="closeAuth()">✕</button>
+    <div class="auth-pear">🍐</div>
+    <div class="auth-title" id="authTitle">შესვლა</div>
+    <div class="auth-sub" id="authSub">Sons of Pear — Custom Fashion</div>
+
+    <div class="auth-notice" id="authNotice">
+      ⚙️ Firebase ჯერ არ არის დაკავშირებული.
+      <a href="https://console.firebase.google.com" target="_blank">გააქტიურე აქ →</a>
+    </div>
+
+    <button class="auth-social" onclick="doGoogle()">
+      <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      Google-ით გაგრძელება
+    </button>
+
+    <button class="auth-social" onclick="doApple()">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.7 9.05 7.42c1.29.07 2.19.74 2.96.8 1.13-.23 2.21-.91 3.42-.84 1.44.12 2.53.72 3.24 1.9-2.97 1.77-2.26 5.66.42 6.77-.61 1.56-1.42 3.11-2.04 4.23zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+      Apple-ით გაგრძელება
+    </button>
+
+    <div class="auth-or">ან</div>
+    <div class="auth-err" id="authErr"></div>
+
+    <div id="authNameWrap" style="display:none">
+      <input class="auth-field" id="authName" type="text" placeholder="სახელი და გვარი">
+    </div>
+    <input class="auth-field" id="authEmail" type="email" placeholder="ელ-ფოსტა">
+    <input class="auth-field" id="authPw"    type="password" placeholder="პაროლი">
+
+    <button class="auth-btn" id="authSubmit" onclick="doEmail()">→ შესვლა</button>
+    <div class="auth-switch" id="authSwitch">
+      ანგარიში არ გაქვს? <a onclick="toggleMode()">რეგისტრაცია</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PROFILE PAGE ══ -->
+<div class="page" id="page-profile">
+  <div class="prof-wrap">
+    <div class="prof-hero">
+      <div class="prof-ava" id="profAva">👤</div>
+      <div class="prof-info">
+        <h2 id="profName">—</h2>
+        <p  id="profEmail">—</p>
+        <div class="prof-badge">🍐 Sons of Pear Member</div>
+      </div>
+    </div>
+    <div class="prof-stitle">📦 ჩემი შეკვეთები</div>
+    <div id="profOrders">
+      <div class="prof-empty"><div class="ei">📭</div><div style="font-weight:600">შეკვეთები არ არის</div><div style="font-size:.82rem;margin-top:.3rem">გაფორმებული შეკვეთები აქ გამოჩნდება</div></div>
+    </div>
+    <div class="prof-actions">
+      <button class="prof-btn dark" onclick="showPage('designer')">✏️ ახალი დიზაინი</button>
+      <button class="prof-btn ghost" onclick="doLogout()">🚪 გასვლა</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════
+   SONS OF PEAR — AUTH
+══════════════════════════════════ */
+let _user   = null;
+let _mode   = "login";   // "login" | "register"
+
+/* state change — called by Firebase onAuthStateChanged */
+
+/* ═══════════════════════════════════
+   ORDER HISTORY
+═══════════════════════════════════ */
+let _orders = JSON.parse(localStorage.getItem("sop_orders")||"[]");
+
+function _saveOrder(order){
+  const uid = _user ? _user.uid : "guest";
+  order.uid = uid;
+  order.id  = Date.now();
+  _orders.unshift(order);
+  try{ localStorage.setItem("sop_orders", JSON.stringify(_orders.slice(0,50))); }catch(e){}
+  _renderProfileOrders();
+}
+
+function _renderProfileOrders(){
+  const el = document.getElementById("profOrders");
+  if(!el) return;
+  const uid = _user ? _user.uid : "guest";
+  const mine = _orders.filter(o=>o.uid===uid);
+  if(!mine.length){
+    el.innerHTML=`<div class="prof-empty"><div class="ei">📭</div><div style="font-weight:600">შეკვეთები არ არის</div><div style="font-size:.82rem;margin-top:.3rem">გაფორმებული შეკვეთები აქ გამოჩნდება</div></div>`;
+    return;
+  }
+  el.innerHTML = mine.map(o=>`
+    <div style="border:1px solid var(--border);border-radius:14px;padding:1.2rem 1.5rem;margin-bottom:.9rem;display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;background:var(--white)">
+      <span style="width:13px;height:13px;border-radius:50%;background:${o.color};border:1px solid #ddd;flex-shrink:0;display:inline-block"></span>
+      <div style="flex:1">
+        <div style="font-weight:600;font-size:.95rem">${o.product} · ${o.size}</div>
+        <div style="font-size:.77rem;color:#aaa;margin-top:.2rem">${o.date} · ${o.qty} ც. · ${o.payment}</div>
+      </div>
+      <span style="font-size:.7rem;font-weight:700;padding:.28rem .85rem;border-radius:100px;background:#eef5cc;color:#4a6800">მიღებულია ✅</span>
+    </div>
+  `).join("");
+}
+
+function selectOrderSize(btn){
+  document.querySelectorAll("#ordSizeRow .size-btn").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+}
+
+/* update profile on auth change */
+const __origFillProfile = _fillProfile;
+_fillProfile = function(u){
+  __origFillProfile(u);
+  _renderProfileOrders();
+};
+
+window._authChange = function(user){
+  _user = user;
+  const li = document.getElementById("authLoggedIn");
+  const lo = document.getElementById("authLoginBtn");
+  if(user){
+    lo.style.display = "none";
+    li.style.display = "block";
+    // avatar
+    const ava = document.getElementById("authAva");
+    if(user.photoURL){ ava.innerHTML=`<img src="${user.photoURL}">`; }
+    else { ava.textContent=(user.displayName||user.email||"?")[0].toUpperCase(); }
+    // dropdown
+    document.getElementById("ddName").textContent  = user.displayName||"მომხმარებელი";
+    document.getElementById("ddEmail").textContent = user.email||"";
+    // profile
+    _fillProfile(user);
+  } else {
+    lo.style.display = "flex";
+    li.style.display = "none";
+    _user = null;
+  }
+};
+
+function _fillProfile(u){
+  const ava = document.getElementById("profAva");
+  if(u.photoURL){ ava.innerHTML=`<img src="${u.photoURL}">`; }
+  else { ava.textContent=(u.displayName||u.email||"?")[0].toUpperCase(); }
+  document.getElementById("profName").textContent  = u.displayName||"მომხმარებელი";
+  document.getElementById("profEmail").textContent = u.email||"";
+}
+
+/* ── open / close ── */
+function openAuth(){
+  _mode = "login"; _applyMode();
+  const notice = document.getElementById("authNotice");
+  notice.style.display = window._fbReady ? "none" : "block";
+  document.getElementById("authOv").classList.add("on");
+  document.body.style.overflow = "hidden";
+  setTimeout(()=>document.getElementById("authEmail").focus(), 300);
+}
+function closeAuth(){
+  document.getElementById("authOv").classList.remove("on");
+  document.body.style.overflow = "";
+  document.getElementById("authErr").textContent = "";
+}
+document.getElementById("authOv").addEventListener("click", e=>{
+  if(e.target===document.getElementById("authOv")) closeAuth();
+});
+
+/* ── mode toggle ── */
+function toggleMode(){
+  _mode = _mode==="login" ? "register" : "login";
+  _applyMode();
+}
+function _applyMode(){
+  const reg = _mode==="register";
+  document.getElementById("authTitle").textContent   = reg ? "რეგისტრაცია" : "შესვლა";
+  document.getElementById("authSub").textContent     = reg ? "შექმენი Sons of Pear ანგარიში" : "Sons of Pear — Custom Fashion";
+  document.getElementById("authSubmit").textContent  = reg ? "→ ანგარიშის შექმნა" : "→ შესვლა";
+  document.getElementById("authNameWrap").style.display = reg ? "block" : "none";
+  document.getElementById("authPw").placeholder      = reg ? "პაროლი (მინ. 6 სიმბოლო)" : "პაროლი";
+  document.getElementById("authSwitch").innerHTML    = reg
+    ? 'უკვე გაქვს ანგარიში? <a onclick="toggleMode()">შესვლა</a>'
+    : 'ანგარიში არ გაქვს? <a onclick="toggleMode()">რეგისტრაცია</a>';
+  document.getElementById("authErr").textContent = "";
+}
+
+/* ── dropdown ── */
+function toggleDd(){ document.getElementById("authDd").classList.toggle("open"); }
+function closeDd(){  document.getElementById("authDd").classList.remove("open"); }
+document.addEventListener("click", e=>{ if(!e.target.closest("#authWrap")) closeDd(); });
+
+/* ── profile ── */
+function goProfile(){
+  closeDd();
+  if(!_user){ openAuth(); return; }
+  showPage("profile");
+}
+
+/* ── logout ── */
+async function doLogout(){
+  closeDd();
+  if(window._fb) await window._fb.logout();
+  window._authChange(null);
+  showPage("home");
+}
+
+/* ── helpers ── */
+function _notConfigured(){
+  document.getElementById("authErr").textContent = "⚙️ Firebase ჯერ არ არის დაკავშირებული";
+}
+function _setBusy(busy){
+  const b = document.getElementById("authSubmit");
+  b.disabled = busy;
+  if(!busy) b.textContent = _mode==="register" ? "→ ანგარიშის შექმნა" : "→ შესვლა";
+  else b.textContent = "⏳...";
+}
+const _MSGS = {
+  "auth/email-already-in-use":"ეს ელ-ფოსტა დარეგისტრირებულია",
+  "auth/user-not-found":"მომხმარებელი ვერ მოიძებნა",
+  "auth/wrong-password":"პაროლი არასწორია",
+  "auth/invalid-credential":"ელ-ფოსტა ან პაროლი არასწორია",
+  "auth/invalid-email":"ელ-ფოსტა არასწორი ფორმატია",
+  "auth/too-many-requests":"ძალიან ბევრი მცდელობა — სცადე მოგვიანებით",
+  "auth/weak-password":"პაროლი ძალიან სუსტია",
+};
+function _err(e){
+  document.getElementById("authErr").textContent = _MSGS[e.code] || e.message || "შეცდომა";
+}
+
+/* ── Google ── */
+async function doGoogle(){
+  document.getElementById("authErr").textContent = "";
+  if(!window._fb){ _notConfigured(); return; }
+  try{
+    await window._fb.google();
+    closeAuth();
+  } catch(e){ _err(e); }
+}
+
+/* ── Apple ── */
+async function doApple(){
+  document.getElementById("authErr").textContent = "";
+  if(!window._fb){ _notConfigured(); return; }
+  try{
+    await window._fb.apple();
+    closeAuth();
+  } catch(e){ _err(e); }
+}
+
+/* ── Email ── */
+async function doEmail(){
+  const email = document.getElementById("authEmail").value.trim();
+  const pw    = document.getElementById("authPw").value;
+  const name  = document.getElementById("authName").value.trim();
+  const errEl = document.getElementById("authErr");
+  errEl.textContent = "";
+
+  if(!email||!pw){ errEl.textContent="შეავსე ყველა ველი"; return; }
+  if(pw.length<6){ errEl.textContent="პაროლი მინ. 6 სიმბოლო"; return; }
+  if(_mode==="register"&&!name){ errEl.textContent="სახელი შეიყვანე"; return; }
+  if(!window._fb){ _notConfigured(); return; }
+
+  _setBusy(true);
+  try{
+    if(_mode==="register") await window._fb.register(email,pw,name);
+    else                   await window._fb.login(email,pw);
+    closeAuth();
+  } catch(e){ _err(e); }
+  finally{ _setBusy(false); }
+}
+
+/* ── Enter key ── */
+["authEmail","authPw","authName"].forEach(id=>{
+  const el = document.getElementById(id);
+  if(el) el.addEventListener("keydown", e=>{ if(e.key==="Enter") doEmail(); });
+});
+</script>
+
+
+<!-- ══ ADMIN LOCK ══ -->
+<div id="adminLock">
+  <div class="alock-box">
+    <div style="font-size:2.8rem;margin-bottom:.8rem">🔐</div>
+    <h2>Admin Panel</h2>
+    <p>Sons of Pear · Developer Mode</p>
+    <input type="password" id="adminPwIn" placeholder="••••••••" onkeydown="if(event.key==='Enter')checkAdminPw()">
+    <button onclick="checkAdminPw()">შესვლა →</button>
+    <div class="alock-err" id="adminErr"></div>
+  </div>
+</div>
+
+<!-- ══ ADMIN PAGE ══ -->
+<div class="page" id="page-admin">
+<div class="adm-wrap">
+
+  <div class="adm-top">
+    <h1>⚙️ Admin <em>Panel</em></h1>
+    <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+      <div class="adm-stats">
+        <div class="adm-stat"><div class="adm-stat-n" id="admCntProd">0</div><div class="adm-stat-l">პროდუქტი</div></div>
+        <div class="adm-stat"><div class="adm-stat-n" id="admCntOrd">0</div><div class="adm-stat-l">შეკვეთა</div></div>
+      </div>
+      <button class="adm-logout" onclick="adminLogout()">🚪 გასვლა</button>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div style="display:flex;gap:.5rem;margin-bottom:2rem;border-bottom:2px solid var(--border);padding-bottom:0">
+    <button class="adm-tab active" data-tab="products" onclick="admTab(this)">📦 პროდუქტები</button>
+    <button class="adm-tab" data-tab="orders" onclick="admTab(this)">📋 შეკვეთები</button>
+    <button class="adm-tab" data-tab="settings" onclick="admTab(this)">⚙️ პარამეტრები</button>
+  </div>
+
+  <!-- PRODUCTS TAB -->
+  <div id="admTabProducts">
+    <div class="adm-card">
+      <h2>➕ ახალი პროდუქტი</h2>
+      <div class="adm-grid">
+        <div class="adm-fg"><label>სახელი (ქართ) *</label><input id="aN" type="text" placeholder="ჰუდი"></div>
+        <div class="adm-fg"><label>სახელი (ინგ) *</label><input id="aEn" type="text" placeholder="Hoodie"></div>
+        <div class="adm-fg"><label>კატეგორია *</label>
+          <select id="aCat">
+            <option value="ზემო">ზემო ტანი</option>
+            <option value="ქვემო">ქვემო ტანი</option>
+            <option value="აქსესუარი">აქსესუარი</option>
+          </select>
+        </div>
+        <div class="adm-fg"><label>Badge</label>
+          <select id="aBadge">
+            <option value="">— არა —</option>
+            <option value="HOT">HOT 🔥</option>
+            <option value="NEW">NEW ✨</option>
+            <option value="SALE">SALE 💥</option>
+          </select>
+        </div>
+        <div class="adm-fg full"><label>მოკლე აღწერა *</label><input id="aDesc" type="text" placeholder="Oversized კაპიუშონიანი ჯემპერი..."></div>
+        <div class="adm-fg full"><label>სრული აღწერა</label><textarea id="aFull" placeholder="დეტალური აღწერა — მასალა, ჭრა..."></textarea></div>
+        <div class="adm-fg full"><label>ფუნქციები (Enter-ით)</label><textarea id="aFeats" placeholder="Oversized ჭრა&#10;Premium Fleece&#10;Custom Print" style="min-height:76px"></textarea></div>
+        <div class="adm-fg full"><label>ტეგები (მძიმით)</label><input id="aTags" type="text" placeholder="Hoodie, Oversized, Custom"></div>
+        <div class="adm-fg full"><label>ფოტო</label>
+          <label class="adm-photo-label" for="aPhoto">
+            <div class="adm-photo-thumb" id="aThumb">📷</div>
+            <div><div style="font-size:.88rem;font-weight:500">ფოტოს ატვირთვა</div><div style="font-size:.74rem;color:#aaa;margin-top:.2rem">PNG · JPG · WebP · მაქს 8MB</div></div>
+            <input type="file" id="aPhoto" accept="image/*" style="display:none">
+          </label>
+        </div>
+      </div>
+      <button class="adm-add-btn" id="admAddBtn" onclick="adminAddProd()">✅ პროდუქტის დამატება</button>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem">
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700">📦 პროდუქტების სია</h2>
+    </div>
+    <div class="adm-prod-grid" id="admProdGrid"></div>
+  </div>
+
+  <!-- ORDERS TAB -->
+  <div id="admTabOrders" style="display:none">
+    <div class="adm-card">
+      <h2>📋 ყველა შეკვეთა</h2>
+      <div id="admOrdersList"></div>
+    </div>
+  </div>
+
+  <!-- SETTINGS TAB -->
+  <div id="admTabSettings" style="display:none">
+    <div class="adm-card">
+      <h2>⚙️ საიტის პარამეტრები</h2>
+      <div class="adm-grid">
+        <div class="adm-fg"><label>Seller Email</label><input id="setEmail" type="email" value="sonsofpear@gmail.com"></div>
+        <div class="adm-fg"><label>Admin პაროლი</label><input id="setPw" type="password" placeholder="ახალი პაროლი"></div>
+        <div class="adm-fg full"><label>WhatsApp ნომერი</label><input id="setWa" type="text" placeholder="+995 5XX XXX XXX"></div>
+        <div class="adm-fg full"><label>Instagram</label><input id="setIg" type="text" placeholder="@sonsofpear"></div>
+      </div>
+      <button class="adm-add-btn" style="max-width:220px" onclick="adminSaveSettings()">💾 შენახვა</button>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<script>
+/* ═══════════════════════════════════════
+   ADMIN PANEL
+═══════════════════════════════════════ */
+let ADMIN_PW = localStorage.getItem("sop_admin_pw") || "sonsofpear2025";
+let _adminAuthed = false;
+let _newProdPhoto = null;
+
+/* ── hash routing ── */
+function _checkHash(){
+  if(location.hash === "#admin"){
+    document.getElementById("adminLock").style.display = "flex";
+    history.replaceState(null,"",location.pathname);
+  }
+}
+window.addEventListener("hashchange", _checkHash);
+window.addEventListener("load", _checkHash);
+
+function checkAdminPw(){
+  const pw = document.getElementById("adminPwIn").value;
+  const err = document.getElementById("adminErr");
+  if(pw === ADMIN_PW){
+    _adminAuthed = true;
+    document.getElementById("adminLock").style.display = "none";
+    document.getElementById("adminPwIn").value = "";
+    showPage("admin");
+    _admRenderAll();
+  } else {
+    err.textContent = "პაროლი არასწორია!";
+    document.getElementById("adminPwIn").value = "";
+    setTimeout(()=>err.textContent="", 2500);
+  }
+}
+
+function adminLogout(){
+  _adminAuthed = false;
+  showPage("home");
+}
+
+/* ── tabs ── */
+function admTab(btn){
+  document.querySelectorAll(".adm-tab").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  const tab = btn.dataset.tab;
+  document.getElementById("admTabProducts").style.display = tab==="products"?"block":"none";
+  document.getElementById("admTabOrders").style.display   = tab==="orders"?"block":"none";
+  document.getElementById("admTabSettings").style.display = tab==="settings"?"block":"none";
+  if(tab==="orders") _admRenderOrders();
+}
+
+/* ── add CSS for tabs ── */
+document.head.insertAdjacentHTML("beforeend",`<style>
+.adm-tab{padding:.65rem 1.4rem;border-radius:12px 12px 0 0;border:none;background:transparent;font-family:inherit;font-size:.88rem;font-weight:500;color:#aaa;cursor:pointer;transition:all .18s;border-bottom:3px solid transparent;margin-bottom:-2px}
+.adm-tab:hover{color:var(--ink)}
+.adm-tab.active{color:var(--ink);border-bottom:3px solid var(--ink);font-weight:600}
+</style>`);
+
+/* ── photo upload ── */
+document.getElementById("aPhoto").addEventListener("change",e=>{
+  const file = e.target.files[0];
+  if(!file) return;
+  if(file.size>8*1024*1024){ alert("ძალიან დიდია! მაქს 8MB"); return; }
+  const reader = new FileReader();
+  reader.onload = ev=>{
+    _newProdPhoto = ev.target.result;
+    const t = document.getElementById("aThumb");
+    t.innerHTML = `<img src="${ev.target.result}">`;
+  };
+  reader.readAsDataURL(file);
+});
+
+/* ── add product ── */
+function adminAddProd(){
+  const name  = document.getElementById("aN").value.trim();
+  const en    = document.getElementById("aEn").value.trim();
+  const cat   = document.getElementById("aCat").value;
+  const badge = document.getElementById("aBadge").value || null;
+  const desc  = document.getElementById("aDesc").value.trim();
+  const full  = document.getElementById("aFull").value.trim() || desc;
+  const feats = document.getElementById("aFeats").value.trim().split("\n").map(s=>s.trim()).filter(Boolean);
+  const tags  = document.getElementById("aTags").value.split(",").map(s=>s.trim()).filter(Boolean);
+
+  if(!name||!en||!desc){ alert("შეავსე: სახელი (ქართ/ინგ) + აღწერა"); return; }
+
+  const id = Math.max(0,...P.map(p=>p.id)) + 1;
+  const svg = `<svg viewBox="0 0 200 200" fill="none"><rect width="200" height="200" rx="16" fill="#f2edd8"/><text x="100" y="115" text-anchor="middle" font-size="72">🍐</text><text x="100" y="156" text-anchor="middle" font-size="13" fill="#9aab1a" font-family="serif" letter-spacing="2">${en.toUpperCase()}</text></svg>`;
+
+  P.push({ id, name, en, cat, badge, desc, full,
+    feats: feats.length?feats:[en,cat],
+    tags:  tags.length?tags:[en],
+    photo: _newProdPhoto, svg });
+
+  // reset form
+  ["aN","aEn","aDesc","aFull","aFeats","aTags"].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=""; });
+  document.getElementById("aBadge").value="";
+  document.getElementById("aThumb").innerHTML="📷";
+  document.getElementById("aPhoto").value="";
+  _newProdPhoto = null;
+
+  renderHome(); renderProducts(); initStrip();
+  _admRenderProds();
+
+  const btn = document.getElementById("admAddBtn");
+  btn.textContent="✅ დამატებულია!"; btn.style.background="var(--pear)"; btn.style.color="var(--ink)";
+  setTimeout(()=>{ btn.textContent="✅ პროდუქტის დამატება"; btn.style.background=""; btn.style.color=""; },2200);
+}
+
+/* ── delete product ── */
+function adminDelProd(id){
+  if(!confirm("წაშლა?")) return;
+  const i = P.findIndex(p=>p.id===id);
+  if(i>-1) P.splice(i,1);
+  renderHome(); renderProducts(); initStrip();
+  _admRenderProds();
+}
+
+/* ── render products ── */
+function _admRenderProds(){
+  const g = document.getElementById("admProdGrid");
+  const c = document.getElementById("admCntProd");
+  if(!g) return;
+  c.textContent = P.length;
+  if(!P.length){
+    g.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:4rem;color:#aaa"><div style="font-size:3rem;margin-bottom:1rem">📦</div><div>პროდუქტები არ არის</div></div>`;
+    return;
+  }
+  g.innerHTML = P.map(p=>`
+    <div class="adm-p-card">
+      <div class="adm-p-img">
+        ${p.photo ? `<img src="${p.photo}">` : `<div class="svg-w">${p.svg}</div>`}
+        ${p.badge?`<span style="position:absolute;top:.55rem;left:.55rem;background:var(--ink);color:#fff;font-size:.6rem;font-weight:700;padding:.18rem .6rem;border-radius:100px;letter-spacing:.08em">${p.badge}</span>`:''}
+        <button class="adm-p-del" onclick="adminDelProd(${p.id})">✕</button>
+      </div>
+      <div class="adm-p-body">
+        <div class="adm-p-en">#${p.id} · ${p.en}</div>
+        <div class="adm-p-name">${p.name}</div>
+        <div class="adm-p-desc">${p.desc}</div>
+      </div>
+    </div>
+  `).join("");
+}
+
+/* ── render orders ── */
+function _admRenderOrders(){
+  const el = document.getElementById("admOrdersList");
+  const c  = document.getElementById("admCntOrd");
+  if(!el) return;
+  c.textContent = _orders.length;
+  if(!_orders.length){
+    el.innerHTML=`<div style="text-align:center;padding:3rem;color:#aaa"><div style="font-size:2.5rem;margin-bottom:.8rem">📭</div><div>შეკვეთები არ არის</div></div>`;
+    return;
+  }
+  el.innerHTML = `<table class="adm-orders-table">
+    <thead><tr><th>#</th><th>პროდუქტი</th><th>ზომა</th><th>რაოდ.</th><th>გადახდა</th><th>თარიღი</th><th>სტატუსი</th></tr></thead>
+    <tbody>${_orders.map((o,i)=>`
+      <tr>
+        <td style="color:#aaa;font-size:.78rem">${_orders.length-i}</td>
+        <td><span style="width:11px;height:11px;border-radius:50%;background:${o.color};display:inline-block;margin-right:.5rem;border:1px solid #ddd;vertical-align:middle"></span><strong>${o.product}</strong></td>
+        <td>${o.size}</td>
+        <td>${o.qty} ც.</td>
+        <td>${o.payment}</td>
+        <td style="color:#aaa;font-size:.82rem">${o.date}</td>
+        <td><span class="adm-badge new">მიღებულია ✅</span></td>
+      </tr>
+    `).join("")}</tbody>
+  </table>`;
+}
+
+/* ── save settings ── */
+function adminSaveSettings(){
+  const pw = document.getElementById("setPw").value;
+  if(pw && pw.length>=6){
+    ADMIN_PW = pw;
+    localStorage.setItem("sop_admin_pw", pw);
+  }
+  alert("✅ შენახულია!");
+}
+
+function _admRenderAll(){
+  _admRenderProds();
+  _admRenderOrders();
+}
+</script>
+
+</body>
+</html>
